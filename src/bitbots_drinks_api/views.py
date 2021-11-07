@@ -16,6 +16,6 @@ class UserViewSet(viewsets.ReadOnlyModelViewSet):
         return Response(serializer.data)
 
 
-class TransactionViewSet(viewsets.GenericViewSet):
+class TransactionViewSet(viewsets.ModelViewSet):
     queryset = models.Transaction.objects.all()
     serializer_class = serializers.TransactionSerializer
