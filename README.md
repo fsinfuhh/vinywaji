@@ -1,10 +1,11 @@
 # bitbots_drinks
+> Keep track of how many drinks people have bought
 
 ## Deployment
 
-This application can be deployed using three different methods which are described in the following sections.
+This application can be deployed using two different methods which are described in the following sections.
 
-In all cases, the application will not immediately start without errors because it needs to bec configured first.
+In all cases, the application will not immediately start without errors because it needs to be configured first.
 This is done via environment variables.
 See [Configuration](#configuration) for the list of available options.
 
@@ -13,22 +14,10 @@ See [Configuration](#configuration) for the list of available options.
 A docker image is built automatically that follows the master branch of the repository.
 It is available as `$TODO`.
 
-The container will automatically generate and print required configuration secrets if they are not defined.
-Take note of them and set them as environment variables.
-
-### On Kubernetes
-
-A kubernetes configuration is included in this repository as [kustomization](https://kustomize.io/).
+Simply start it via
 ```shell
-# just render the config
-kustomize build $TODO
-
-# directly apply it to your existing cluster
-kustomize build $TODO | kubectl apply -f -
+docker run --name bitbots_drinks $TODO
 ```
-
-The container will automatically generate and print required configuration secrets if they are not defined.
-Take note of them and set them as environment variables via the generated configmap.
 
 ### On Baremetal from source
 
@@ -40,17 +29,14 @@ To build the application from source, follow the following steps:
 git clone $TODO
 cd $TODO
 
-# install python dependencies
+# install locked python dependencies
 pipenv install --ignore-pipfile
-
-# build the frontend
-cd src/bitbots_drinks_frontend/bitbots_drinks_vue
-yarn run build
 ```
 
 To start it:
 ```shell
 cd src
+./manage.py check --deploy
 ./manage.py migrate
 ./manage.py
 ```
@@ -67,32 +53,3 @@ The application is configured at runtime via the following environment variables
 | BL_SERVED_OVER_HTTPS | `false` | Whether the application is served over HTTPS. If enabled, automatic redirects and additional security measures are activated. ||
 | BL_HSTS_SECONDS | `63072000` | If larger than 0 and `BL_SERVED_OVER_HTTPS` is true, HSTS is enabled with this configured value. ||
 | BL_TRUST_REVERSE_PROXY | `false` | If true, headers set by a reverse proxy (i.e. `X-Forwarded-Proto`) are trusted. | Defaults to `true` for Kubernetes deployments. |
-||
-| BL_EMAIL_FROM | *undefined* | From email address to use when sending mails. ||
-| BL_EMAIL_HOST | *undefined* | Host address of an email server. ||
-| BL_EMAIL_PORT | `25` | Port address on the email host. ||
-| BL_HOST_USER | *undefined* | Username used to authenticate on the email server. ||
-| BL_HOST_PASSWORD | *undefined* | Password used to authenticate on the email server. ||
-| BL_EMAIL_USE_TLS | `false` | Whether TLS (including STARTTLS) should be used on the email connection. ||
-| BL_EMAIL_USE_SSL | `false` | Whether SSL should be used on the email connection. ||
-
-## Software Architecture
-
-The software ist composed of a *backend* and a *frontend*.
-The *backend* is written as a Django application while the *frontend* is using Vue.js.
-
-### Backend
-
-The *backend* package is located directly in the [src](./src) folder.
-It is in itself a rather simple django project composed of the five apps:
-
-- *bitbots_drinks* for general things like Django's *asgi* handler and settings.
-
-- *bitbots_drinks_frontend* which contains the vue code and ties it into the Django project.
-  For its own structure see the [Frontend Section](#frontend).
-
-
-### Frontend
-
-The *frontend* Vue.js code is located at [src/bitbots_drinks_frontend/bitbots_drinks_vue](./src/bitbots_drinks_frontend/bitbots_drinks_vue).
-The package contains its own *README* that explains the directory structure and how to interact with it.
