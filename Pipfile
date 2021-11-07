@@ -1,0 +1,17 @@
+[[source]]
+url = "https://pypi.org/simple"
+verify_ssl = true
+name = "pypi"
+
+[packages]
+django = "~=3.2"
+django-configurations = "~=2.2"
+graphene-django = "~=2.15"
+djangorestframework = "~=3.12"
+drf-spectacular = "~=0.20.2"
+
+[dev-packages]
+pre-commit = "*"
+
+[requires]
+python_version = "3"
