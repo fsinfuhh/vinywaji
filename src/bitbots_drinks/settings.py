@@ -25,6 +25,7 @@ class Base(Configuration):
         "django.contrib.sessions",
         "django.contrib.messages",
         "django.contrib.staticfiles",
+        "whitenoise.runserver_nostatic",
         "rest_framework",
         "rest_framework.authtoken",
         "drf_spectacular",
@@ -33,6 +34,7 @@ class Base(Configuration):
     ]
 
     MIDDLEWARE = [
+        "whitenoise.middleware.WhiteNoiseMiddleware",
         "django.middleware.security.SecurityMiddleware",
         "django.contrib.sessions.middleware.SessionMiddleware",
         "django.middleware.common.CommonMiddleware",
@@ -65,9 +67,7 @@ class Base(Configuration):
     # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
 
     AUTH_PASSWORD_VALIDATORS = [
-        {
-            "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator"
-        },
+        {"NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator"},
         {"NAME": "django.contrib.auth.password_validation.MinimumLengthValidator"},
         {"NAME": "django.contrib.auth.password_validation.CommonPasswordValidator"},
         {"NAME": "django.contrib.auth.password_validation.NumericPasswordValidator"},
@@ -91,6 +91,10 @@ class Base(Configuration):
 
     STATIC_URL = "/static/"
 
+    STATIC_ROOT = str(BASE_DIR.parent / "staticfiles")
+
+    STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
+
     # Default primary key field type
     # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
@@ -102,6 +106,8 @@ class Base(Configuration):
     SECURE_HSTS_PRELOAD = True
 
     AUTH_USER_MODEL = "bitbots_drinks_core.User"
+
+    SILENCED_SYSTEM_CHECKS = ["security.W003"]
 
     REST_FRAMEWORK = {
         "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
@@ -123,22 +129,7 @@ class Base(Configuration):
     def DATABASES(self):
         # Database
         # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
-        return {
-            "default": {"ENGINE": "django.db.backends.sqlite3", "NAME": self.DB_PATH}
-        }
-
-    @property
-    def EMAIL_BACKEND(self):
-        if self.EMAIL_ENABLED and not self.DEBUG:
-            return "django.bitbots_drinks_core.mail.backends.smtp.EmailBackend"
-        elif self.DEBUG:
-            return "django.bitbots_drinks_core.mail.backends.console.EmailBackend"
-        else:
-            return "django.bitbots_drinks_core.mail.backends.dummy.EmailBackend"
-
-    @property
-    def DEFAULT_FROM_MAIL(self):
-        return self.EMAIL_FROM
+        return {"default": {"ENGINE": "django.db.backends.sqlite3", "NAME": self.DB_PATH}}
 
     @property
     def SESSION_COOKIE_SECURE(self):
@@ -178,32 +169,17 @@ class Base(Configuration):
     HSTS_SECONDS = values.IntegerValue(environ_prefix="BBD", default=63072000)
     TRUST_REVERSE_PROXY = values.BooleanValue(environ_prefix="BBD", default=False)
 
-    EMAIL_FROM = values.Value(environ_prefix="BBD")
-    EMAIL_HOST = values.Value(environ_prefix="BBD")
-    EMAIL_PORT = values.IntegerValue(environ_prefix="BBD", default=25)
-    EMAIL_HOST_USER = values.Value(environ_prefix="BBD")
-    EMAIL_HOST_PASSWORD = values.Value(environ_prefix="BBD")
-    EMAIL_USE_TLS = values.BooleanValue(environ_prefix="BBD", default=False)
-    EMAIL_USE_SSL = values.BooleanValue(environ_prefix="BBD", default=False)
-
 
 class Dev(Base):
     SECRET_KEY = "django-insecure-w=wf5uo!qsp=--f18j_wq_uc48813i(7f=ik913*j0j+t-0m5c"
     DEBUG = True
-    EMAIL_ENABLED = True
 
     @classmethod
     def pre_setup(cls):
-        os.environ.setdefault(
-            "BBD_DB_PATH", str(BASE_DIR.absolute().parent / "db.sqlite")
-        )
+        os.environ.setdefault("BBD_DB_PATH", str(BASE_DIR.absolute().parent / "db.sqlite"))
 
 
 class Prod(Base):
     DEBUG = False
     SECRET_KEY = values.SecretValue(environ_prefix="BBD")
     ALLOWED_HOSTS = values.ListValue(environ_prefix="BBD", environ_required=True)
-
-    @property
-    def EMAIL_ENABLED(self):
-        return self.EMAIL_HOST is not None and self.EMAIL_FROM is not None

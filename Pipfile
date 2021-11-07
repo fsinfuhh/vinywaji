@@ -9,6 +9,7 @@ django-configurations = "~=2.2"
 graphene-django = "~=2.15"
 djangorestframework = "~=3.12"
 drf-spectacular = "~=0.20.2"
+whitenoise = "~=5.3"
 
 [dev-packages]
 pre-commit = "*"
