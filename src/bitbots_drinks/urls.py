@@ -20,4 +20,5 @@ urlpatterns = [
     path("admin/", admin.site.urls),
     path("auth/", include("django_auth_mafiasi.urls")),
     path("api/", include("bitbots_drinks_api.urls")),
+    path("", include("bitbots_drinks_gui.urls")),
 ]

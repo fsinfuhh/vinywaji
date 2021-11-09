@@ -32,6 +32,7 @@ class Base(BaseAuthConfigurationMixin, Configuration):
         "drf_spectacular",
         "bitbots_drinks_core",
         "bitbots_drinks_api",
+        "bitbots_drinks_gui",
     ] + BaseAuthConfigurationMixin.MAFIASI_AUTH_APPS
 
     MIDDLEWARE = [
