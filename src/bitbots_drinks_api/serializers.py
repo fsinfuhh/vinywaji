@@ -5,7 +5,7 @@ from bitbots_drinks_core import models
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.User
-        fields = ["id", "transactions", "username", "auth_token"]
+        fields = ["id", "transactions", "username", "auth_token", "current_balance"]
 
     transactions = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
     auth_token = serializers.SerializerMethodField()

@@ -17,6 +17,10 @@ class User(AbstractUser):
         token, _ = Token.objects.get_or_create(user=self)
         return token
 
+    @property
+    def current_balance(self) -> int:
+        return sum((t.amount for t in self.transactions.all()))
+
 
 class Transaction(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid_default)
