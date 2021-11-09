@@ -109,17 +109,26 @@ class Base(Configuration):
 
     SILENCED_SYSTEM_CHECKS = ["security.W003"]
 
+    VERSION = "1.0.0"
+
     REST_FRAMEWORK = {
         "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
         "TITLE": "Bit-Bots Drinks API",
         "DESCRIPTION": "REST-API for the Bit-Bots Drinks service",
-        "VERSION": "1.0.0",
+        "VERSION": VERSION,
         "DEFAULT_AUTHENTICATION_CLASSES": [
             "rest_framework.authentication.SessionAuthentication",
             "rest_framework.authentication.BasicAuthentication",
             "rest_framework.authentication.TokenAuthentication",
             "bitbots_drinks_api.authentication.ServiceAccountAuthentication",
         ],
+    }
+
+    SPECTACULAR_SETTINGS = {
+        "COMPONENT_SPLIT_PATCH": False,
+        "SERVE_INCLUDE_SCHEMA": False,
+        "VERSION": VERSION,
+        "CONTACT": {"name": "Bit-Bots", "url": "https://bit-bots.de", "email": "info@bit-bots.de"},
     }
 
     ###
