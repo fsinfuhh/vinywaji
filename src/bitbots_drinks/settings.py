@@ -184,7 +184,7 @@ class Base(BaseAuthConfigurationMixin, Configuration):
     SERVED_OVER_HTTPS = values.BooleanValue(environ_prefix="BBD", default=False)
     HSTS_SECONDS = values.IntegerValue(environ_prefix="BBD", default=63072000)
     TRUST_REVERSE_PROXY = values.BooleanValue(environ_prefix="BBD", default=False)
-    SERVICE_ACCOUNT_TOKEN = values.SecretValue(environ_prefix="BBD")
+    SERVICE_ACCOUNT_TOKEN = values.SecretValue(environ_prefix="BBD", environ_required=True)
 
 
 class Dev(DevAuthConfigurationMixin, Base):
