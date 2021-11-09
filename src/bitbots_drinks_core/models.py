@@ -1,6 +1,6 @@
 import uuid
 from django.db import models
-from django.contrib.auth.models import AbstractUser
+from django_auth_mafiasi.models import MafiasiAuthModelUser
 from rest_framework.authtoken.models import Token
 
 
@@ -8,11 +8,7 @@ def uuid_default() -> "uuid.UUID":
     return uuid.uuid4()
 
 
-class User(AbstractUser):
-    id = models.UUIDField(primary_key=True, default=uuid_default)
-
-    REQUIRED_FIELDS = []
-
+class User(MafiasiAuthModelUser):
     def get_or_create_auth_token(self) -> Token:
         token, _ = Token.objects.get_or_create(user=self)
         return token

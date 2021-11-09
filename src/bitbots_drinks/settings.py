@@ -10,6 +10,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 import os
 
 from configurations import Configuration, values
+from django_auth_mafiasi.configuration import BaseAuthConfigurationMixin, DevAuthConfigurationMixin
 from pathlib import Path
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
@@ -17,7 +18,7 @@ from pathlib import Path
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 
-class Base(Configuration):
+class Base(BaseAuthConfigurationMixin, Configuration):
     INSTALLED_APPS = [
         "django.contrib.auth",
         "django.contrib.admin",
@@ -31,7 +32,7 @@ class Base(Configuration):
         "drf_spectacular",
         "bitbots_drinks_core",
         "bitbots_drinks_api",
-    ]
+    ] + BaseAuthConfigurationMixin.MAFIASI_AUTH_APPS
 
     MIDDLEWARE = [
         "whitenoise.middleware.WhiteNoiseMiddleware",
@@ -107,6 +108,12 @@ class Base(Configuration):
 
     AUTH_USER_MODEL = "bitbots_drinks_core.User"
 
+    AUTH_SCOPE = ["openid", "profile"]
+
+    REST_FRAMEWORK_REQUIRED_SCOPES = AUTH_SCOPE
+
+    LOGIN_REDIRECT_URL = "/api/schema/swagger"
+
     SILENCED_SYSTEM_CHECKS = ["security.W003"]
 
     VERSION = "1.0.0"
@@ -180,7 +187,7 @@ class Base(Configuration):
     SERVICE_ACCOUNT_TOKEN = values.SecretValue(environ_prefix="BBD")
 
 
-class Dev(Base):
+class Dev(DevAuthConfigurationMixin, Base):
     SECRET_KEY = "django-insecure-w=wf5uo!qsp=--f18j_wq_uc48813i(7f=ik913*j0j+t-0m5c"
     DEBUG = True
 
