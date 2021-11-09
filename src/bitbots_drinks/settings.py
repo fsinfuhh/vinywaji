@@ -134,6 +134,7 @@ class Base(BaseAuthConfigurationMixin, Configuration):
     SPECTACULAR_SETTINGS = {
         "COMPONENT_SPLIT_PATCH": False,
         "SERVE_INCLUDE_SCHEMA": False,
+        "ENABLE_DJANGO_DEPLOY_CHECK": False,
         "VERSION": VERSION,
         "CONTACT": {"name": "Bit-Bots", "url": "https://bit-bots.de", "email": "info@bit-bots.de"},
     }
