@@ -20,7 +20,7 @@ RUN ln -sf /app/bitbots_drinks/asgi.py /app/main.py
 # setup recommended container config
 RUN mkdir /app/data
 ENV DJANGO_CONFIGURATION=Prod
-ENV BBD_DB_PATH=/app/data/db.sqlite
+ENV BBD_DATABASE_URL=sqlite:///app/data/db.sqlite
 
 # add additional metadata
 VOLUME /app/data

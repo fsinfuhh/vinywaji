@@ -52,7 +52,7 @@ The application is configured at runtime via the following environment variables
 
 | Name | Default | Description | Notes |
 |------|---------|-------------|-------|
-| BBD_DB_PATH | *required* | Path to the database file. | In container based deployments this preconfigured to point to `/app/data/db.sqlite` |
+| BBD_DATABASE_URL | *required* | Url that specifies the complete database connection. [Documentation](https://pypi.org/project/dj-database-url/) | In container based deployments this preconfigured to point to `/app/data/db.sqlite` |
 | BBD_SECRET_KEY | *required* | Django secret key. **Keep this secret!** ||
 | BBD_SERVICE_ACCOUNT_TOKEN | *required* | Static authentication token which can be used to make authenticated requests against the API. **Keep this secret!** | ||
 | BBD_ALLOWED_HOSTS | *required* | List of hostnames which may be used when accessing the application. ||

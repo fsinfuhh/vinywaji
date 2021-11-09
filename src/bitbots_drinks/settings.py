@@ -142,12 +142,6 @@ class Base(BaseAuthConfigurationMixin, Configuration):
     # Computed settings
     ###
     @property
-    def DATABASES(self):
-        # Database
-        # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
-        return {"default": {"ENGINE": "django.db.backends.sqlite3", "NAME": self.DB_PATH}}
-
-    @property
     def SESSION_COOKIE_SECURE(self):
         return self.SERVED_OVER_HTTPS
 
@@ -180,11 +174,12 @@ class Base(BaseAuthConfigurationMixin, Configuration):
     ###
     # Runtime customizable settings
     ###
-    DB_PATH = values.Value(environ_prefix="BBD", environ_required=True)
     SERVED_OVER_HTTPS = values.BooleanValue(environ_prefix="BBD", default=False)
     HSTS_SECONDS = values.IntegerValue(environ_prefix="BBD", default=63072000)
     TRUST_REVERSE_PROXY = values.BooleanValue(environ_prefix="BBD", default=False)
     SERVICE_ACCOUNT_TOKEN = values.SecretValue(environ_prefix="BBD", environ_required=True)
+
+    DATABASES = values.DatabaseURLValue(environ_prefix="BBD")
 
 
 class Dev(DevAuthConfigurationMixin, Base):
@@ -193,7 +188,8 @@ class Dev(DevAuthConfigurationMixin, Base):
 
     @classmethod
     def pre_setup(cls):
-        os.environ.setdefault("BBD_DB_PATH", str(BASE_DIR.absolute().parent / "db.sqlite"))
+        db_path = str(BASE_DIR.absolute().parent / "db.sqlite")
+        os.environ.setdefault("BBD_DATABASE_URL", f"sqlite:///{db_path}")
         os.environ.setdefault("BBD_SERVICE_ACCOUNT_TOKEN", "insecure-foobar123")
 
 
