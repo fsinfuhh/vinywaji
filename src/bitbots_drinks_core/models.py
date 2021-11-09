@@ -20,7 +20,7 @@ class User(AbstractUser):
 
 class Transaction(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid_default)
-    user = models.ForeignKey(to="User", on_delete=models.CASCADE, related_name="transactions")
+    user = models.ForeignKey(to="User", on_delete=models.CASCADE, related_name="transactions", editable=False)
     description = models.CharField(max_length=30, default="")
     amount = models.IntegerField()
 
