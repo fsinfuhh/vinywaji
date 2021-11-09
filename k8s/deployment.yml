@@ -2,17 +2,17 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: bitbots_drinks
+  name: bitbots-drinks
 spec:
   selector:
     matchLabels:
       app.kubernetes.io/component: web
-      app.kubernetes.io/name: bitbots_drinks_server
+      app.kubernetes.io/name: bitbots-drinks-server
   template:
     metadata:
       labels:
         app.kubernetes.io/component: web
-        app.kubernetes.io/name: bitbots_drinks_server
+        app.kubernetes.io/name: bitbots-drinks-server
     spec:
       containers:
         - name: server
@@ -20,10 +20,10 @@ spec:
           imagePullPolicy: Always
           envFrom:
             - configMapRef:
-                name: bitbots_drinks
+                name: bitbots-drinks
                 optional: true
             - secretRef:
-                name: bitbots_drinks
+                name: bitbots-drinks
                 optional: true
           ports:
             - containerPort: 80
