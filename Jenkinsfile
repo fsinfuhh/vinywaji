@@ -7,6 +7,11 @@ pipeline {
 kind: Pod
 spec:
   containers:
+    - name: kustomize
+      image: docker.io/nekottyo/kustomize-kubeval
+      tty: true
+      command:
+        - cat
     - name: podman
       image: quay.io/podman/stable
       tty: true
@@ -24,6 +29,22 @@ spec:
         stage("Checkout SCM") {
             steps {
                 checkout scm
+            }
+        }
+        stage("Check Kubernetes config validity") {
+            steps {
+                container("kustomize") {
+                    gitStatusWrapper(
+                        credentialsId: "github-credentials",
+                        description: "Check Kubernetes config validity",
+                        failureDescription: "Kubernetes config is not valid",
+                        successDescription: "Kubernetes config is valid",
+                        gitHubContext: "check-k8s"
+                    ) {
+                        sh "kustomize build . > k8s.yml"
+                        sh "kubeval k8s.yml --strict"
+                    }
+                }
             }
         }
         stage("Build Container Image") {
