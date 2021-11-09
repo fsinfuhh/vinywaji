@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "3044f23a574a980e077db20c197f296d1f705e7702dc0f3936c0fe1737c70136"
+            "sha256": "8cd7f154f105fd2d360b255befe7b8864f731b550da2c247cc5547ef0ff19d73"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -49,11 +49,11 @@
         },
         "django-configurations": {
             "hashes": [
-                "sha256:0b93cb7042739e2d69cfc6fb81676bbd3cbb63ea19b02e8b681f4cad3a8aaf1b",
-                "sha256:9e3bcea1355ac50a4c9f854f751d214cb17e5f8adf18405a4488d0a1e8945915"
+                "sha256:65e2e9b68a699d9403663b17c367e5e31ffd3739d4ddf995e04217416876dba1",
+                "sha256:e2ca25530e184f0ee3b7f5ae69563461a93a8914493306ee0bf6d71e7d8ad1d0"
             ],
             "index": "pypi",
-            "version": "==2.2"
+            "version": "==2.3.1"
         },
         "djangorestframework": {
             "hashes": [
@@ -253,11 +253,11 @@
     "develop": {
         "backports.entry-points-selectable": {
             "hashes": [
-                "sha256:988468260ec1c196dab6ae1149260e2f5472c9110334e5d51adcb77867361f6a",
-                "sha256:a6d9a871cde5e15b4c4a53e3d43ba890cc6861ec1332c9c2428c92f977192acc"
+                "sha256:7fceed9532a7aa2bd888654a7314f864a3c16a4e710b34a58cfc0f08114c663b",
+                "sha256:914b21a479fde881635f7af5adc7f6e38d6b274be32269070c53b698c60d5386"
             ],
             "markers": "python_version >= '2.7'",
-            "version": "==1.1.0"
+            "version": "==1.1.1"
         },
         "cfgv": {
             "hashes": [
@@ -284,11 +284,11 @@
         },
         "identify": {
             "hashes": [
-                "sha256:4de55a93e0ba72bf917c840b3794eb1055a67272a1732351c557c88ec42011b1",
-                "sha256:595283a1c3a078ac5774ad4dc4d1bdd0c1602f60bcf11ae673b64cb2b1945762"
+                "sha256:6f0368ba0f21c199645a331beb7425d5374376e71bc149e9cb55e45cb45f832d",
+                "sha256:ba945bddb4322394afcf3f703fa68eda08a6acc0f99d9573eb2be940aa7b9bba"
             ],
             "markers": "python_full_version >= '3.6.1'",
-            "version": "==2.3.4"
+            "version": "==2.3.5"
         },
         "nodeenv": {
             "hashes": [
