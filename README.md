@@ -1,6 +1,8 @@
 # bitbots_drinks
 > Keep track of how many drinks people have bought
 
+[![Build Status](http://ci.bit-bots.de/buildStatus/icon?job=Github+Bit-Bots%2Fbitbots_drinks%2Fmain)](http://ci.bit-bots.de/job/Github%20Bit-Bots/job/bitbots_drinks/job/main/)
+
 ## Deployment
 
 This application can be deployed using two different methods which are described in the following sections.
