@@ -1,6 +1,7 @@
 from typing import *
 
 from django.contrib.auth.models import AnonymousUser
+from drf_spectacular.extensions import OpenApiAuthenticationExtension
 from rest_framework.authentication import BaseAuthentication, get_authorization_header
 from rest_framework.exceptions import AuthenticationFailed
 from rest_framework.request import Request
@@ -41,3 +42,17 @@ class ServiceAccountAuthentication(BaseAuthentication):
             raise AuthenticationFailed("Invalid Service-Account Authorization header. Incorrect token")
 
         return AnonymousUser(), type(self)
+
+
+class OpenApiServiceAccountAuthentication(OpenApiAuthenticationExtension):
+    target_class = ServiceAccountAuthentication
+    name = "ServiceAccountAuthentication"
+
+    def get_security_definition(self, auto_schema: "AutoSchema") -> Union[dict, List[dict]]:
+        return {
+            "type": "apiKey",
+            "in": "header",
+            "name": "Authorization",
+            "description": "Token-based authentication to authenticate as the systems service account. "
+            'Required prefix "Service-Account"',
+        }
