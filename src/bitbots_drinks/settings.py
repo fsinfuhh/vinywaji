@@ -118,8 +118,8 @@ class Base(Configuration):
             "rest_framework.authentication.SessionAuthentication",
             "rest_framework.authentication.BasicAuthentication",
             "rest_framework.authentication.TokenAuthentication",
+            "bitbots_drinks_api.authentication.ServiceAccountAuthentication",
         ],
-        "DEFAULT_PERMISSION_CLASSES": ["rest_framework.permissions.IsAuthenticated"],
     }
 
     ###
@@ -168,6 +168,7 @@ class Base(Configuration):
     SERVED_OVER_HTTPS = values.BooleanValue(environ_prefix="BBD", default=False)
     HSTS_SECONDS = values.IntegerValue(environ_prefix="BBD", default=63072000)
     TRUST_REVERSE_PROXY = values.BooleanValue(environ_prefix="BBD", default=False)
+    SERVICE_ACCOUNT_TOKEN = values.SecretValue(environ_prefix="BBD")
 
 
 class Dev(Base):
@@ -177,6 +178,7 @@ class Dev(Base):
     @classmethod
     def pre_setup(cls):
         os.environ.setdefault("BBD_DB_PATH", str(BASE_DIR.absolute().parent / "db.sqlite"))
+        os.environ.setdefault("BBD_SERVICE_ACCOUNT_TOKEN", "insecure-foobar123")
 
 
 class Prod(Base):
