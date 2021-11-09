@@ -1,5 +1,4 @@
 from rest_framework import serializers
-from rest_framework.authtoken.models import Token
 from bitbots_drinks_core import models
 
 
@@ -12,8 +11,7 @@ class UserSerializer(serializers.ModelSerializer):
     auth_token = serializers.SerializerMethodField()
 
     def get_auth_token(self, instance: "models.User") -> str:
-        token, _ = Token.objects.get_or_create(user=instance)
-        return str(token)
+        return instance.get_or_create_auth_token().key
 
 
 class TransactionSerializer(serializers.ModelSerializer):

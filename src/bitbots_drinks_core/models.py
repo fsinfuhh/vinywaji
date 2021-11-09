@@ -1,6 +1,7 @@
 import uuid
 from django.db import models
 from django.contrib.auth.models import AbstractUser
+from rest_framework.authtoken.models import Token
 
 
 def uuid_default() -> "uuid.UUID":
@@ -11,6 +12,10 @@ class User(AbstractUser):
     id = models.UUIDField(primary_key=True, default=uuid_default)
 
     REQUIRED_FIELDS = []
+
+    def get_or_create_auth_token(self) -> Token:
+        token, _ = Token.objects.get_or_create(user=self)
+        return token
 
 
 class Transaction(models.Model):
