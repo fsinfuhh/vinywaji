@@ -1,7 +1,11 @@
 FROM docker.io/tiangolo/uvicorn-gunicorn:python3.8-slim
 
 # add system dependencies
-RUN pip3 install pipenv
+ENV DEBIAN_FRONTEND=noninteractive
+RUN apt-get update &&\
+    apt-get install -y --no-install-recommends git &&\
+    apt-get clean && rm -rf /var/lib/apt/lists/*
+RUN pip3 install --no-cache pipenv
 WORKDIR /app
 
 # install dependencies
