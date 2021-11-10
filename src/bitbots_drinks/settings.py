@@ -39,6 +39,7 @@ class Base(BaseAuthConfigurationMixin, Configuration):
         "whitenoise.middleware.WhiteNoiseMiddleware",
         "django.middleware.security.SecurityMiddleware",
         "django.contrib.sessions.middleware.SessionMiddleware",
+        "django.middleware.csrf.CsrfViewMiddleware",
         "django.middleware.common.CommonMiddleware",
         "django.contrib.auth.middleware.AuthenticationMiddleware",
         "django.contrib.messages.middleware.MessageMiddleware",
@@ -107,13 +108,15 @@ class Base(BaseAuthConfigurationMixin, Configuration):
 
     SECURE_HSTS_PRELOAD = True
 
+    CSRF_COOKIE_HTTPONLY = True
+
     AUTH_USER_MODEL = "bitbots_drinks_core.User"
 
     AUTH_SCOPE = ["openid", "profile"]
 
     REST_FRAMEWORK_REQUIRED_SCOPES = AUTH_SCOPE
 
-    LOGIN_REDIRECT_URL = "/api/schema/swagger"
+    LOGIN_REDIRECT_URL = "/"
 
     SILENCED_SYSTEM_CHECKS = ["security.W003"]
 
