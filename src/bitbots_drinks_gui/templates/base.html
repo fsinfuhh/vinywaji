@@ -1,0 +1,49 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    {% if page_title %}
+        <title>{{ page_title }} – BitBots Drinks</title>
+    {% else %}
+        <title>BitBots Drinks</title>
+    {% endif %}
+    {% block  head %}
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"/>
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        {% if page_description %}
+            <meta name="description" content="{{ page_description }}">
+        {% endif %}
+        {% block head-extra %}{% endblock %}
+    {% endblock %}
+</head>
+<body>
+{% block body %}
+    {% include "components/navbar.html" %}
+    <div class="container">
+
+        {% block content %}
+            {% if request.user.is_anonymous %}
+                {% include "components/login-card.html" %}
+            {% else %}
+
+                {% block authorized-content %}
+                    <p style="text-align: center">
+                        <b>Overwrite "content" block to extend the base template</b>
+                    </p>
+                {% endblock %}
+
+            {% endif %}
+
+        {% endblock %}
+    </div>
+    {% block scripts %}
+        <script type="application/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+        <script type="application/javascript" src="{% static 'base.js' %}"></script>
+        {% block scripts-extra %}{% endblock %}
+    {% endblock %}
+{% endblock %}
+</body>
+</html>

@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block scripts-extra %}
+<script type="module" src="{% static 'record-purchase.mjs' %}"></script>
+{% endblock %}
+
+{% block authorized-content %}
+    <div class="row">
+        {% include "components/forms/record-purchase.html" %}
+    </div>
+    <div class="row">
+        <p>Pay up</p>
+    </div>
+    <div class="row">
+        <p>Past transaction</p>
+    </div>
+{% endblock %}

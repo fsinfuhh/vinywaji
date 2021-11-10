@@ -1,0 +1,25 @@
+<form id="purchase" action="{% url 'transaction-list' %}">
+    {% csrf_token %}
+    <div class="row">
+        <p>If you bought something, press the big button.</p>
+        <p>
+            If you want to enter some details about what you bought, you can do so before hitting the big button.
+            This will make the transaction more recognizable.
+        </p>
+    </div>
+    <div class="row">
+        <div class="input-field col l4 m4 s12">
+            <input id="purchase-value" class="validate" name="amount" placeholder="100" type="number" required value="100">
+            <label for="purchase-value">Value</label>
+        </div>
+
+        <div class="input-field col l4 m4 s12">
+            <input id="purchase-description" name="description" placeholder="FritzCola" type="text">
+            <label for="purchase-description">Description</label>
+        </div>
+
+        <div class="col l4 m4 s12 center">
+            <button class="btn" type="submit">Purchase</button>
+        </div>
+    </div>
+</form>

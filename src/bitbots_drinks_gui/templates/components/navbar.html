@@ -1,0 +1,12 @@
+<nav>
+    <div class="nav-wrapper">
+        <a href="/" class="brand-logo">BitBots Drinks</a>
+        <ul class="right">
+            {% if request.user.is_anonymous %}
+                <li><a href="{% url 'django_auth_mafiasi:login' %}">Login</a></li>
+            {% else %}
+                <li><a href="{% url 'django_auth_mafiasi:logout' %}">Logout</a></li>
+            {% endif %}
+        </ul>
+    </div>
+</nav>
