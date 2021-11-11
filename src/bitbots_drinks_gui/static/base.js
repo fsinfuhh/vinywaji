@@ -6,14 +6,16 @@ document.onload = function () {
 };
 
 // submit all forms via JavaScript to prevent the browser from navigating to the api endpoint
-document.querySelector("form.js-submit").addEventListener("submit", async function (event) {
-    event.preventDefault();
+document.querySelectorAll("form.js-submit")
+    .forEach(form => form.addEventListener("submit", async function (event) {
+        event.preventDefault();
 
-    const data = new FormData(event.target)
-    await fetch(event.target.action, {
-        method: event.target.method,
-        body: data
-    })
+        const data = new FormData(event.target)
+        await fetch(event.target.action, {
+            method: event.target.method,
+            body: data
+        })
 
-    location.reload()
-});
+        form.reset()
+        location.reload()
+    }));
