@@ -37,6 +37,7 @@ class Transaction(models.Model):
         help_text="How much money was involved in this transaction in euro-cent. "
         "Negative amounts represent purchases while positive amounts represent deposits."
     )
+    time = models.DateTimeField(auto_now_add=True, help_text="When this transaction occurred")
 
     def __str__(self):
         if self.description != "":
