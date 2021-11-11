@@ -75,9 +75,9 @@ class TransactionViewSet(
 
         # adjust requested transaction object according to query parameters
         if "currency" in request.query_params and request.query_params["currency"] == "euro":
-            data["amount"] *= 100
+            data["amount"] = int(data["amount"]) * 100
         if "type" in request.query_params and request.query_params["type"] == "purchase":
-            data["amount"] *= -1
+            data["amount"] = int(data["amount"]) * -1
 
         # create the transaction object
         serializer = self.get_serializer(data=data)
