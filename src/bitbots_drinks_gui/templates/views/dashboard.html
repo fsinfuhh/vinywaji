@@ -2,6 +2,10 @@
 {% load static %}
 
 {% block authorized-content %}
+    <h4>Your current balance is <b>{{ current_balance }}€</b></h4>
+
+    <div class="divider"></div>
+
     <div class="row section">
         {% include "components/forms/record-purchase.html" %}
     </div>
