@@ -30,6 +30,7 @@ class Base(BaseAuthConfigurationMixin, Configuration):
         "rest_framework",
         "rest_framework.authtoken",
         "drf_spectacular",
+        "mathfilters",
         "bitbots_drinks_core",
         "bitbots_drinks_api",
         "bitbots_drinks_gui",

@@ -2,13 +2,19 @@
 {% load static %}
 
 {% block authorized-content %}
-    <div class="row">
+    <div class="row section">
         {% include "components/forms/record-purchase.html" %}
     </div>
-    <div class="row">
+
+    <div class="row section">
         {% include "components/forms/pay-up.html" %}
     </div>
-    <div class="row">
-        <p>Past transaction</p>
+
+    <div class="divider"></div>
+
+    <div class="row sectionr">
+        {% for transaction in transactions %}
+            {% include "components/transaction.html" %}
+        {% endfor %}
     </div>
 {% endblock %}
