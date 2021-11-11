@@ -1,0 +1,19 @@
+<form id="pay-up" class="js-submit" action="{% url 'transaction-list' %}?currency=euro&type=deposit" method="post">
+    {% csrf_token %}
+    <div class="row">
+        <div class="input-field col l6 m6 s12">
+            {% if pay_up_amount > 0 %}
+                <input id="pay-up-amount" class="validate" name="amount" type="number" required
+                       value="{{ pay_up_amount }}">
+                <label for="pay-up-amount">Deposit Value</label>
+            {% else %}
+                <input id="pay-up-amount" class="validate" name="amount" type="number" required>
+                <label for="pay-up-amount">Deposit Value (you already have {{ current_balance }}€)</label>
+            {% endif %}
+        </div>
+
+        <div class="col l6 m6 s12">
+            <button class="btn" type="submit">Deposit</button>
+        </div>
+    </div>
+</form>
