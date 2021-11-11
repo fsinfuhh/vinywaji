@@ -15,14 +15,28 @@ class User(MafiasiAuthModelUser):
 
     @property
     def current_balance(self) -> int:
+        """How much money the user currently has in their account"""
         return sum((t.amount for t in self.transactions.all()))
 
 
 class Transaction(models.Model):
-    id = models.UUIDField(primary_key=True, default=uuid_default)
-    user = models.ForeignKey(to="User", on_delete=models.CASCADE, related_name="transactions", editable=False)
-    description = models.CharField(max_length=30, default="")
-    amount = models.IntegerField()
+    id = models.UUIDField(primary_key=True, default=uuid_default, help_text="The ID of this transaction")
+    user = models.ForeignKey(
+        to="User",
+        on_delete=models.CASCADE,
+        related_name="transactions",
+        editable=False,
+        help_text="The user with which this transaction is associated",
+    )
+    description = models.CharField(
+        max_length=30,
+        default="",
+        help_text="Additional free form details a user might wish to add to this transaction",
+    )
+    amount = models.IntegerField(
+        help_text="How much money was involved in this transaction in euro-cent. "
+        "Negative amounts represent purchases while positive amounts represent deposits."
+    )
 
     def __str__(self):
         if self.description != "":
