@@ -1,4 +1,4 @@
-<form id="purchase" action="{% url 'transaction-list' %}">
+<form id="purchase" class="js-submit" action="{% url 'transaction-list' %}?currency=euro&type=purchase" method="post">
     {% csrf_token %}
     <div class="row">
         <p>If you bought something, press the big button.</p>
@@ -9,7 +9,7 @@
     </div>
     <div class="row">
         <div class="input-field col l4 m4 s12">
-            <input id="purchase-value" class="validate" name="amount" placeholder="-100" type="number" required value="-100">
+            <input id="purchase-value" class="validate" name="amount" placeholder="1" type="number" required value="1">
             <label for="purchase-value">Value</label>
         </div>
 
