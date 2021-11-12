@@ -3,12 +3,12 @@
     <div class="row">
         <div class="input-field col l6 m6 s12">
             {% if pay_up_amount > 0 %}
-                <input id="pay-up-amount" class="validate" name="amount" type="number" required
+                <input id="pay-up-amount" class="validate" name="amount" type="number" required min="1"
                        value="{{ pay_up_amount }}">
                 <label for="pay-up-amount">Deposit Value</label>
             {% else %}
-                <input id="pay-up-amount" class="validate" name="amount" type="number" required>
-                <label for="pay-up-amount">Deposit Value (you already have {{ current_balance }}€)</label>
+                <input id="pay-up-amount" class="validate" name="amount" type="number" required min="1">
+                <label for="pay-up-amount">Deposit Value (you currently have {{ current_balance }}€)</label>
             {% endif %}
         </div>
 
