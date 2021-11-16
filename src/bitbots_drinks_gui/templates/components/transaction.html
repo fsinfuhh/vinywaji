@@ -1,8 +1,8 @@
 {% load mathfilters %}
 {% load humanize %}
 
-<div class="card transaction {% if transaction.amount < 0 %}red darken1{% else %}teal{% endif %}">
-    <div class="card-content white-text">
+<div class="card transaction {% if transaction.amount < 0 %}amber amber lighten-4{% else %}light-green lighten-4{% endif %}">
+    <div class="card-content">
         <span class="card-title">
             {% if transaction.amount < 0 %}
                 {{ transaction.amount | abs | div:100 | floatformat:2 | intcomma }}€ purchase
