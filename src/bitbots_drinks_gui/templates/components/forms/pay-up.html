@@ -5,10 +5,10 @@
             {% if pay_up_amount > 0 %}
                 <input id="pay-up-amount" class="validate" name="amount" type="number" required min="1"
                        value="{{ pay_up_amount }}">
-                <label for="pay-up-amount">Deposit Value</label>
+                <label for="pay-up-amount">Deposit Value (€)</label>
             {% else %}
                 <input id="pay-up-amount" class="validate" name="amount" type="number" required min="1">
-                <label for="pay-up-amount">Deposit Value (you currently have {{ current_balance }}€)</label>
+                <label for="pay-up-amount">Deposit Value (you currently have {{ current_balance }}€) (€)</label>
             {% endif %}
         </div>
 
