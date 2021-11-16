@@ -1,25 +1,16 @@
 <form id="purchase" class="js-submit" action="{% url 'transaction-list' %}?currency=euro&type=purchase" method="post">
     {% csrf_token %}
-    <div class="row">
-        <p>If you bought something, press the big button.</p>
-        <p>
-            If you want to enter some details about what you bought, you can do so before hitting the big button.
-            This will make the transaction more recognizable.
-        </p>
-    </div>
-    <div class="row">
-        <div class="input-field col l4 m4 s12">
+    <div class="horizontal-align">
+        <div class="input-field">
             <input id="purchase-value" class="validate" name="amount" placeholder="1" type="number" required value="1" min="1">
             <label for="purchase-value">Purchase Value (€)</label>
         </div>
 
-        <div class="input-field col l4 m4 s12">
+        <div class="input-field">
             <input id="purchase-description" name="description" placeholder="fritz-kola" type="text">
             <label for="purchase-description">Description</label>
         </div>
 
-        <div class="col l4 m4 s12 center">
-            <button class="btn" type="submit">Purchase</button>
-        </div>
+        <button class="btn btn-large" type="submit">Purchase</button>
     </div>
 </form>

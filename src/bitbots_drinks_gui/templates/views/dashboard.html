@@ -15,8 +15,9 @@
         {% include "components/forms/pay-up.html" %}
     </div>
 
-    <div class="divider"></div>
 
+    <h4>Past transactions</h4>
+    <div class="divider"></div>
     <div class="row sectionr">
         {% for transaction in transactions %}
             {% include "components/transaction.html" %}

@@ -1,7 +1,7 @@
 <form id="pay-up" class="js-submit" action="{% url 'transaction-list' %}?currency=euro&type=deposit" method="post">
     {% csrf_token %}
-    <div class="row">
-        <div class="input-field col l6 m6 s12">
+    <div class="horizontal-align">
+        <div class="input-field">
             {% if pay_up_amount > 0 %}
                 <input id="pay-up-amount" class="validate" name="amount" type="number" required min="1"
                        value="{{ pay_up_amount }}">
@@ -12,8 +12,6 @@
             {% endif %}
         </div>
 
-        <div class="col l6 m6 s12">
-            <button class="btn" type="submit">Deposit</button>
-        </div>
+        <button class="btn btn-large" type="submit">Deposit</button>
     </div>
 </form>
