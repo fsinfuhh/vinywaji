@@ -14,3 +14,22 @@
 .horizontal-align button {
     min-width: 148px;
 }
+
+.transaction .card-content {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+    gap: 64px
+}
+
+.transaction .card-content .card-title {
+    margin-bottom: 0;
+}
+
+.transaction .card-content * {
+    font-weight: 300;
+}
+
+.transaction .card-content .grow {
+    flex-grow: 1;
+}
