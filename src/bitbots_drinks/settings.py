@@ -26,6 +26,7 @@ class Base(BaseAuthConfigurationMixin, Configuration):
         "django.contrib.sessions",
         "django.contrib.messages",
         "django.contrib.staticfiles",
+        "django.contrib.humanize",
         "whitenoise.runserver_nostatic",
         "rest_framework",
         "rest_framework.authtoken",

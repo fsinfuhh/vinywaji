@@ -1,15 +1,16 @@
 {% load mathfilters %}
+{% load humanize %}
 
 <div class="col l3 m6 s12">
     <div class="card {% if transaction.amount < 0 %}red darken1{% else %}teal{% endif %}">
         <div class="card-content white-text">
             <span class="card-title">
                 {% if transaction.amount < 0 %}
-                    {{ transaction.amount | abs | div:100 }}€ purchase
+                    {{ transaction.amount | abs | div:100 | floatformat:2 | intcomma }}€ purchase
                 {% elif transaction.amount == 0 %}
                     {{ 0 }}€ transaction (why???)
                 {% else %}
-                    {{ transaction.amount | abs | div:100 }}€ deposit
+                    {{ transaction.amount | abs | div:100 | floatformat:2 | intcomma }}€ deposit
                 {% endif %}
             </span>
         </div>

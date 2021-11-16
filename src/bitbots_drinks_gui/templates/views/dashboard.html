@@ -1,8 +1,9 @@
 {% extends "base.html" %}
 {% load static %}
+{% load humanize %}
 
 {% block authorized-content %}
-    <h4>Your current balance is <b>{{ current_balance }}€</b></h4>
+    <h4>Your current balance is <b>{{ current_balance | floatformat:2 | intcomma }}</b>€</h4>
 
     <div class="divider"></div>
 
