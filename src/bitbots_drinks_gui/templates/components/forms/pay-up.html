@@ -1,3 +1,4 @@
+{% load humanize %}
 <form id="pay-up" class="js-submit" action="{% url 'transaction-list' %}?currency=euro&type=deposit" method="post">
     {% csrf_token %}
     <div class="horizontal-align">
@@ -8,7 +9,7 @@
                 <label for="pay-up-amount">Deposit Value (€)</label>
             {% else %}
                 <input id="pay-up-amount" class="validate" name="amount" type="number" required min="1">
-                <label for="pay-up-amount">Deposit Value (you currently have {{ current_balance }}€) (€)</label>
+                <label for="pay-up-amount">Deposit Value (you currently have {{ current_balance | floatformat:2 | intcomma }}€) (€)</label>
             {% endif %}
         </div>
 
