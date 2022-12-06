@@ -33,3 +33,7 @@
 .transaction .card-content .grow {
     flex-grow: 1;
 }
+
+nav .brand-logo {
+    padding-left: 20px;
+}
