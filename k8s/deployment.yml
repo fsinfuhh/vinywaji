@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: server
-          image: ghcr.io/bit-bots/bitbots_drinks:latest
+          image: ghcr.io/bit-bots/bitbots_drinks
           imagePullPolicy: Always
           envFrom:
             - configMapRef:
