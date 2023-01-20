@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: server
-          image: ghcr.io/bit-bots/bitbots_drinks:dev-latest
+          image: ghcr.io/bit-bots/bitbots_drinks:latest
           imagePullPolicy: Always
           envFrom:
             - configMapRef:
@@ -29,8 +29,5 @@ spec:
             - containerPort: 80
               name: http
           readinessProbe:
-            tcpSocket:
-              port: http
-          livenessProbe:
             tcpSocket:
               port: http
