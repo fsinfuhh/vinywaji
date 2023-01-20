@@ -1,0 +1,10 @@
+name: build_container
+on:
+  workflow_dispatch: {}
+  push:
+    branches:
+      - main
+
+jobs:
+  build-container:
+    uses: fsinfuhh/workflows/.github/workflows/build_image.yml@main
