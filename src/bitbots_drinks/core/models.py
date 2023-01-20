@@ -1,18 +1,14 @@
 import uuid
+
+from django.contrib.auth.models import AbstractUser
 from django.db import models
-from django_auth_mafiasi.models import MafiasiAuthModelUser
-from rest_framework.authtoken.models import Token
 
 
 def uuid_default() -> "uuid.UUID":
     return uuid.uuid4()
 
 
-class User(MafiasiAuthModelUser):
-    def get_or_create_auth_token(self) -> Token:
-        token, _ = Token.objects.get_or_create(user=self)
-        return token
-
+class User(AbstractUser):
     @property
     def current_balance(self) -> int:
         """How much money the user currently has in their account"""

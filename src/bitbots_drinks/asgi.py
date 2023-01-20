@@ -9,11 +9,7 @@ https://docs.djangoproject.com/en/3.2/howto/deployment/asgi/
 
 import os
 
-from configurations import importer
-
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "bitbots_drinks.settings")
-importer.install()
-
 from django.core.asgi import get_asgi_application
 
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "bitbots_drinks.settings")
 app = get_asgi_application()

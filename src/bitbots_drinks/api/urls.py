@@ -1,8 +1,12 @@
 from django.urls import path
+from drf_spectacular.views import (
+    SpectacularAPIView,
+    SpectacularSwaggerOauthRedirectView,
+    SpectacularSwaggerView,
+)
 from rest_framework import routers
-from drf_spectacular.views import SpectacularAPIView, SpectacularSwaggerView
-from . import views
 
+from . import views
 
 router = routers.SimpleRouter()
 router.register(r"users", views.UserViewSet, basename="user")
@@ -16,5 +20,9 @@ urlpatterns = [
         SpectacularSwaggerView.as_view(url_name="schema"),
         name="swagger-ui",
     ),
-    path("app-settings/", views.AppSettingsViewSet.as_view(), name="app-settings-retrieve"),
+    path(
+        "schema/oauth2-redirect.html",
+        SpectacularSwaggerOauthRedirectView.as_view(),
+        name="swagger-ui-oauth-callback",
+    ),
 ] + router.urls
