@@ -1,4 +1,4 @@
-FROM docker.io/tiangolo/uvicorn-gunicorn:python3.8-slim
+FROM docker.io/tiangolo/uvicorn-gunicorn:python3.10-slim
 
 # add system dependencies
 ENV DEBIAN_FRONTEND=noninteractive
