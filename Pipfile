@@ -16,6 +16,7 @@ environs = { version = "~=9.5", extras = ["django"] }
 pre-commit = "*"
 isort = "*"
 black = "*"
+ipython = "*"
 
 [requires]
 python_version = "3"

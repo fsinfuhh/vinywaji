@@ -134,7 +134,7 @@ LOGIN_REDIRECT_URL = "/"
 
 OPENID_ISSUER = env.str("BBD_OPENID_ISSUER", default="https://identity.mafiasi.de/realms/mafiasi")
 OPENID_CLIENT_ID = env.str("BBD_OPENID_CLIENT_ID")
-OPENID_SCOPE = "openid bitbots-drink-transactions"
+OPENID_SCOPE = "openid profile bitbots-drink-transactions"
 
 SILENCED_SYSTEM_CHECKS = ["security.W003"]
 
@@ -161,6 +161,24 @@ SPECTACULAR_SETTINGS = {
     "SWAGGER_UI_FAVICON_HREF": "SIDECAR",
     "SWAGGER_UI_OAUTH2_CONFIG": {
         "scopes": OPENID_SCOPE,
+    },
+}
+
+LOGGING = {
+    "version": 1,
+    "disable_existing_loggers": False,
+    "handlers": {
+        "console": {
+            "level": "DEBUG" if DEBUG else "INFO",
+            "class": "logging.StreamHandler",
+        },
+    },
+    "loggers": {
+        "": {
+            "handlers": ["console"],
+            "propagate": True,
+            "level": "DEBUG" if DEBUG else "INFO",
+        },
     },
 }
 
