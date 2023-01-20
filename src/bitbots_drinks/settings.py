@@ -130,6 +130,7 @@ LOGIN_REDIRECT_URL = "/"
 
 OPENID_ISSUER = env.str("BBD_OPENID_ISSUER", default="https://identity.mafiasi.de/realms/mafiasi")
 OPENID_CLIENT_ID = env.str("BBD_OPENID_CLIENT_ID")
+OPENID_CLIENT_SECRET = env.str("BBD_OPENID_CLIENT_SECRET")
 OPENID_SCOPE = "openid profile bitbots-drink-transactions"
 
 SILENCED_SYSTEM_CHECKS = ["security.W003"]
