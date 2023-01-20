@@ -1,7 +1,7 @@
 # bitbots_drinks
 > Keep track of how many drinks people have bought
 
-[![Build Status](http://ci.bit-bots.de/buildStatus/icon?job=Github+Bit-Bots%2Fbitbots_drinks%2Fmain)](http://ci.bit-bots.de/job/Github%20Bit-Bots/job/bitbots_drinks/job/main/)
+![screenshot](.screenshot.png)
 
 ## Deployment
 
@@ -18,7 +18,7 @@ It is available as `ghcr.io/bit-bots/bitbots_drinks:dev-latest`.
 
 Simply start it via
 ```shell
-docker run --name bitbots_drinks ghcr.io/bit-bots/bitbots_drinks:dev-latest
+docker run --name bitbots_drinks ghcr.io/bit-bots/bitbots_drinks:latest
 ```
 
 Configuration can be specified by supplying environment variables during `docker run` with the `-e` argument.
@@ -50,15 +50,14 @@ pipenv shell
 
 The application is configured at runtime via the following environment variables:
 
-| Name | Default | Description | Notes |
-|------|---------|-------------|-------|
-| BBD_DATABASE_URL | *required* | Url that specifies the complete database connection. [Documentation](https://pypi.org/project/dj-database-url/) | In container based deployments this preconfigured to point to `/app/data/db.sqlite` |
-| BBD_SECRET_KEY | *required* | Django secret key. **Keep this secret!** ||
-| BBD_SERVICE_ACCOUNT_TOKEN | *required* | Static authentication token which can be used to make authenticated requests against the API. **Keep this secret!** | ||
-| BBD_ALLOWED_HOSTS | *required* | List of hostnames which may be used when accessing the application. ||
-| BBD_SERVED_OVER_HTTPS | `false` | Whether the application is served over HTTPS. If enabled, automatic redirects and additional security measures are activated. ||
-| BBD_HSTS_SECONDS | `63072000` | If larger than 0 and `BL_SERVED_OVER_HTTPS` is true, HSTS is enabled with this configured value. ||
-| BBD_TRUST_REVERSE_PROXY | `false` | If true, headers set by a reverse proxy (i.e. `X-Forwarded-Proto`) are trusted. ||
+| Name                     | Default                | Description                                                                                                                   | Notes                                                                               |
+|--------------------------|------------------------|-------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------|
+| BBD_DB                   | *required*             | Url that specifies the complete database connection. [Documentation](https://pypi.org/project/dj-database-url/)               | In container based deployments this preconfigured to point to `/app/data/db.sqlite` |
+| BBD_SECRET_KEY           | *required*             | Django secret key. **Keep this secret!**                                                                                      ||
+| BBD_ALLOWED_HOSTS        | *required*             | List of hostnames which may be used when accessing the application.                                                           ||
+| BBD_SERVED_OVER_HTTPS    | `false`                | Whether the application is served over HTTPS. If enabled, automatic redirects and additional security measures are activated. ||
+| BBD_HSTS_SECONDS         | `63072000`             | If larger than 0 and `BL_SERVED_OVER_HTTPS` is true, HSTS is enabled with this configured value.                              ||
+| BBD_TRUST_REVERSE_PROXY  | `false`                | If true, headers set by a reverse proxy (i.e. `X-Forwarded-Proto`) are trusted.                                               ||
 ||
-| DJANGO_AUTH_CLIENT_ID | *required in production* | Mafiasi-Identity client ID. Used for authentication ||
-| DJANGO_AUTH_CLIENT_SECRET | *required in production* | Mafiasi-Identity client secret. Used for authentication ||
+| BBD_OPENID_CLIENT_ID     | *required*             | Mafiasi-Identity client ID. Used for authentication                                                                           ||
+| BBD_OPENID_CLIENT_SECRET | *required*             | Mafiasi-Identity client secret. Used for authentication                                                                       ||
