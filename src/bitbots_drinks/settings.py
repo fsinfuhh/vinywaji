@@ -127,6 +127,7 @@ CSRF_COOKIE_HTTPONLY = True
 AUTH_USER_MODEL = "bitbots_drinks_core.User"
 LOGIN_URL = "simple_openid_connect_django:login"
 LOGIN_REDIRECT_URL = "/"
+LOGOUT_REDIRECT_URL = "/"
 
 OPENID_ISSUER = env.str("BBD_OPENID_ISSUER", default="https://identity.mafiasi.de/realms/mafiasi")
 OPENID_CLIENT_ID = env.str("BBD_OPENID_CLIENT_ID")
