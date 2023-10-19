@@ -67,14 +67,14 @@ class TransactionViewSet(
         ]
     )
     def create(self, request: Request, *args, **kwargs):
+        # force QueryDict to be mutable
+        data = request.data.copy()
+
         # adjust requested transaction object according to query parameters
         if "currency" in request.query_params and request.query_params["currency"] == "euro":
             data["amount"] = int(data["amount"] * 100)
         if "type" in request.query_params and request.query_params["type"] == "purchase":
             data["amount"] = int(data["amount"]) * -1
-
-        # force QueryDict to be mutable
-        data = request.data.copy()
 
         # perform preliminary validation to make sure that later data modification does not fail unexpectedly
         self.get_serializer(data=data).is_valid(raise_exception=True)
