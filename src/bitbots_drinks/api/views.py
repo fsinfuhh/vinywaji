@@ -72,7 +72,7 @@ class TransactionViewSet(
 
         # adjust requested transaction object according to query parameters
         if "currency" in request.query_params and request.query_params["currency"] == "euro":
-            data["amount"] = int(data["amount"] * 100)
+            data["amount"] = int(float(data["amount"]) * 100)
         if "type" in request.query_params and request.query_params["type"] == "purchase":
             data["amount"] = int(data["amount"]) * -1
 
