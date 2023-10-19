@@ -1,8 +1,6 @@
 # bitbots_drinks
 > Keep track of how many drinks people have bought
 
-![screenshot](.screenshot.png)
-
 ## Deployment
 
 This application can be deployed using two different methods which are described in the following sections.
