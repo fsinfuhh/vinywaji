@@ -39,5 +39,19 @@ nav .brand-logo {
 }
 
 .mafiasi-primary {
-    background-color: #00747f;
+    background-color: #02837c;
+}
+
+.btn.mafiasi-primary:hover {
+    background-color: #00a49a;
+}
+
+/* label focus color */
+.input-field input[type=text]:focus + label {
+    color: #02837c;
+}
+/* label underline focus color */
+.input-field input[type=text]:focus {
+    border-bottom: 1px solid #02837c;
+    box-shadow: 0 1px 0 0 #02837c;
 }
