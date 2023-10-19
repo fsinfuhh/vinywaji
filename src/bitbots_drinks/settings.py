@@ -140,8 +140,8 @@ VERSION = "2.0.0"
 
 REST_FRAMEWORK = {
     "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
-    "TITLE": "Bit-Bots Drinks API",
-    "DESCRIPTION": "REST-API for the Bit-Bots Drinks service",
+    "TITLE": "Mafiasi Drinks API",
+    "DESCRIPTION": "REST-API for the Mafiasi Drinks service",
     "VERSION": VERSION,
     "DEFAULT_AUTHENTICATION_CLASSES": [
         "rest_framework.authentication.SessionAuthentication",
