@@ -180,6 +180,9 @@ LOGGING = {
     },
 }
 
+DEFAULT_AMOUNT = env.float("BBD_DEFAULT_AMOUNT", default=1.5)
+MAFIASI_COLORS = env.bool("BBD_MAFIASI_COLORS", default=True)
+
 if SERVED_OVER_HTTPS:
     SESSION_COOKIE_SECURE = True
     SECURE_SSL_REDIRECT = True

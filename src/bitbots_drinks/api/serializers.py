@@ -18,3 +18,4 @@ class TransactionSerializer(serializers.ModelSerializer):
     user = serializers.PrimaryKeyRelatedField(
         default=serializers.CurrentUserDefault(), queryset=models.User.objects.all()
     )
+    amount = serializers.DecimalField(max_digits=5, decimal_places=2)
