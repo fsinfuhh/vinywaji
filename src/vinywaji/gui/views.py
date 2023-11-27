@@ -10,6 +10,7 @@ class DashboardView(View):
     def get(self, request: HttpRequest):
         context = {
             "mafiasi_colors": settings.MAFIASI_COLORS,
+            "title": settings.ORG_NAME,
         }
         if not request.user.is_anonymous:
             context.update({

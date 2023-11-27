@@ -138,10 +138,12 @@ SILENCED_SYSTEM_CHECKS = ["security.W003"]
 
 VERSION = "2.0.0"
 
+ORG_NAME = env.str("BBD_ORG_NAME", default="Bit-Bots Drinks")
+
 REST_FRAMEWORK = {
     "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
-    "TITLE": "Mafiasi Drinks API",
-    "DESCRIPTION": "REST-API for the Mafiasi Drinks service",
+    "TITLE": "{} API".format(ORG_NAME),
+    "DESCRIPTION": "REST-API for the {} service".format(ORG_NAME),
     "VERSION": VERSION,
     "DEFAULT_AUTHENTICATION_CLASSES": [
         "rest_framework.authentication.SessionAuthentication",
