@@ -1,7 +1,7 @@
 from django.apps import AppConfig
 
 
-class GuiConfig(AppConfig):
+class CoreConfig(AppConfig):
     default_auto_field = "django.db.models.BigAutoField"
-    name = "bitbots_drinks.gui"
-    label = "bitbots_drinks_gui"
+    name = "vinywaji.core"
+    label = "vinywaji_core"

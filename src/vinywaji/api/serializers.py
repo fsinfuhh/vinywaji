@@ -1,6 +1,6 @@
 from rest_framework import serializers
 
-from bitbots_drinks.core import models
+from vinywaji.core import models
 
 
 class UserSerializer(serializers.ModelSerializer):

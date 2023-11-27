@@ -1,5 +1,5 @@
 """
-Django settings for bitbots_drinks project.
+Django settings for vinywaji project.
 
 For more information on this file, see
 https://docs.djangoproject.com/en/3.2/topics/settings/
@@ -44,9 +44,9 @@ INSTALLED_APPS = [
     "drf_spectacular_sidecar",
     "mathfilters",
     "simple_openid_connect.integrations.django",
-    "bitbots_drinks.core",
-    "bitbots_drinks.api",
-    "bitbots_drinks.gui",
+    "vinywaji.core",
+    "vinywaji.api",
+    "vinywaji.gui",
 ]
 
 MIDDLEWARE = [
@@ -60,7 +60,7 @@ MIDDLEWARE = [
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
 ]
 
-ROOT_URLCONF = "bitbots_drinks.urls"
+ROOT_URLCONF = "vinywaji.urls"
 
 TEMPLATES = [
     {
@@ -78,7 +78,7 @@ TEMPLATES = [
     }
 ]
 
-WSGI_APPLICATION = "bitbots_drinks.wsgi.application"
+WSGI_APPLICATION = "vinywaji.wsgi.application"
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
@@ -124,7 +124,7 @@ SECURE_HSTS_PRELOAD = True
 
 CSRF_COOKIE_HTTPONLY = True
 
-AUTH_USER_MODEL = "bitbots_drinks_core.User"
+AUTH_USER_MODEL = "vinywaji_core.User"
 LOGIN_URL = "simple_openid_connect_django:login"
 LOGIN_REDIRECT_URL = "/"
 LOGOUT_REDIRECT_URL = "/"

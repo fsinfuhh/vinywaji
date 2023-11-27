@@ -7,7 +7,7 @@ import django.utils.timezone
 from django.conf import settings
 from django.db import migrations, models
 
-import bitbots_drinks.core.models
+import vinywaji.core.models
 
 
 class Migration(migrations.Migration):
@@ -110,7 +110,7 @@ class Migration(migrations.Migration):
                 (
                     "id",
                     models.UUIDField(
-                        default=bitbots_drinks.core.models.uuid_default,
+                        default=vinywaji.core.models.uuid_default,
                         help_text="The ID of this transaction",
                         primary_key=True,
                         serialize=False,

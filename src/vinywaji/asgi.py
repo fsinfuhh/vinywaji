@@ -1,5 +1,5 @@
 """
-ASGI config for bitbots_drinks project.
+ASGI config for vinywaji project.
 
 It exposes the ASGI callable as a module-level variable named ``app``.
 
@@ -11,5 +11,5 @@ import os
 
 from django.core.asgi import get_asgi_application
 
-os.environ.setdefault("DJANGO_SETTINGS_MODULE", "bitbots_drinks.settings")
+os.environ.setdefault("DJANGO_SETTINGS_MODULE", "vinywaji.settings")
 app = get_asgi_application()

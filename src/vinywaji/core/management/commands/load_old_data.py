@@ -6,7 +6,7 @@ from django.core.management import BaseCommand
 from django.utils import timezone
 from simple_openid_connect.integrations.django import models as openid_models
 
-from bitbots_drinks.core import models
+from vinywaji.core import models
 
 logger = logging.getLogger(__name__)
 
@@ -41,7 +41,7 @@ class Command(BaseCommand):
             )
 
         # re-add transactions
-        for transact_data in (i for i in fixture_json if i["model"] == "bitbots_drinks_core.transaction"):
+        for transact_data in (i for i in fixture_json if i["model"] == "vinywaji_core.transaction"):
             user = openid_models.OpenidUser.objects.get(sub=transact_data["fields"]["user"]).user
             parsed_datetime = timezone.datetime.strptime(
                 transact_data["fields"]["time"], "%Y-%m-%dT%H:%M:%S.%fZ"

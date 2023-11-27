@@ -1,5 +1,7 @@
-# bitbots_drinks
+# vinywaji
 > Keep track of how many drinks people have bought
+
+Vinywaji is Swahili for "drinks".
 
 ![screenshot](.screenshot.png)
 
@@ -18,7 +20,7 @@ It is available as `ghcr.io/bit-bots/bitbots_drinks:dev-latest`.
 
 Simply start it via
 ```shell
-docker run --name bitbots_drinks ghcr.io/bit-bots/bitbots_drinks:latest
+docker run --name vinywaji ghcr.io/bit-bots/bitbots_drinks:latest
 ```
 
 Configuration can be specified by supplying environment variables during `docker run` with the `-e` argument.

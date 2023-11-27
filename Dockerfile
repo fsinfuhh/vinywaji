@@ -15,7 +15,7 @@ RUN pipenv install --system --ignore-pipfile
 # add remaining sources
 COPY src /app/
 COPY docker/prestart.sh /app/
-RUN ln -sf /app/bitbots_drinks/asgi.py /app/main.py
+RUN ln -sf /app/vinywaji/asgi.py /app/main.py
 
 # setup recommended container config
 RUN mkdir /app/data

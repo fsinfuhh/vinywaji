@@ -6,7 +6,7 @@ from rest_framework.permissions import IsAdminUser, IsAuthenticated
 from rest_framework.request import Request
 from rest_framework.response import Response
 
-from bitbots_drinks.core import models
+from vinywaji.core import models
 
 from . import permissions, serializers
 
