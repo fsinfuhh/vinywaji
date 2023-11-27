@@ -13,7 +13,7 @@ from pathlib import Path
 from environs import Env
 
 env = Env()
-env.read_env(env.path("BBD_ENV_FILE", default=".env"))
+env.read_env(env.path("VW_ENV_FILE", default=".env"))
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -21,14 +21,14 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 ###
 # Runtime customizable settings
 ###
-DEBUG = env.bool("BBD_DEBUG", default=False)
-SERVED_OVER_HTTPS = env.bool("BBD_SERVED_OVER_HTTPS", default=False)
-TRUST_REVERSE_PROXY = env.bool("BBD_TRUST_REVERSE_PROXY", default=False)
-SECRET_KEY = env.str("BBD_SECRET_KEY")
-ALLOWED_HOSTS = env.list("BBD_ALLOWED_HOSTS")
+DEBUG = env.bool("VW_DEBUG", default=False)
+SERVED_OVER_HTTPS = env.bool("VW_SERVED_OVER_HTTPS", default=False)
+TRUST_REVERSE_PROXY = env.bool("VW_TRUST_REVERSE_PROXY", default=False)
+SECRET_KEY = env.str("VW_SECRET_KEY")
+ALLOWED_HOSTS = env.list("VW_ALLOWED_HOSTS")
 
-DATABASES = {"default": env.dj_db_url("BBD_DB")}
-CACHES = {"default": env.dj_cache_url("BBD_CACHE", default="dummy://" if DEBUG else "locmem://")}
+DATABASES = {"default": env.dj_db_url("VW_DB")}
+CACHES = {"default": env.dj_cache_url("VW_CACHE", default="dummy://" if DEBUG else "locmem://")}
 
 INSTALLED_APPS = [
     "django.contrib.auth",
@@ -129,16 +129,16 @@ LOGIN_URL = "simple_openid_connect_django:login"
 LOGIN_REDIRECT_URL = "/"
 LOGOUT_REDIRECT_URL = "/"
 
-OPENID_ISSUER = env.str("BBD_OPENID_ISSUER", default="https://identity.mafiasi.de/realms/mafiasi")
-OPENID_CLIENT_ID = env.str("BBD_OPENID_CLIENT_ID")
-OPENID_CLIENT_SECRET = env.str("BBD_OPENID_CLIENT_SECRET")
+OPENID_ISSUER = env.str("VW_OPENID_ISSUER", default="https://identity.mafiasi.de/realms/mafiasi")
+OPENID_CLIENT_ID = env.str("VW_OPENID_CLIENT_ID")
+OPENID_CLIENT_SECRET = env.str("VW_OPENID_CLIENT_SECRET")
 OPENID_SCOPE = "openid profile bitbots-drink-transactions"
 
 SILENCED_SYSTEM_CHECKS = ["security.W003"]
 
 VERSION = "2.0.0"
 
-ORG_NAME = env.str("BBD_ORG_NAME", default="Bit-Bots Drinks")
+ORG_NAME = env.str("VW_ORG_NAME", default="Bit-Bots Drinks")
 
 REST_FRAMEWORK = {
     "DEFAULT_SCHEMA_CLASS": "drf_spectacular.openapi.AutoSchema",
@@ -182,13 +182,13 @@ LOGGING = {
     },
 }
 
-DEFAULT_AMOUNT = env.float("BBD_DEFAULT_AMOUNT", default=1.5)
-MAFIASI_COLORS = env.bool("BBD_MAFIASI_COLORS", default=True)
+DEFAULT_AMOUNT = env.float("VW_DEFAULT_AMOUNT", default=1.5)
+MAFIASI_COLORS = env.bool("VW_MAFIASI_COLORS", default=False)
 
 if SERVED_OVER_HTTPS:
     SESSION_COOKIE_SECURE = True
     SECURE_SSL_REDIRECT = True
-    SECURE_HSTS_SECONDS = env.int("BBD_HSTS_SECONDS", default=63072000)
+    SECURE_HSTS_SECONDS = env.int("VW_HSTS_SECONDS", default=63072000)
 
 if TRUST_REVERSE_PROXY:
     SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
