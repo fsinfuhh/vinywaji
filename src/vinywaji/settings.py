@@ -132,7 +132,7 @@ LOGOUT_REDIRECT_URL = "/"
 OPENID_ISSUER = env.str("VW_OPENID_ISSUER", default="https://identity.mafiasi.de/realms/mafiasi")
 OPENID_CLIENT_ID = env.str("VW_OPENID_CLIENT_ID")
 OPENID_CLIENT_SECRET = env.str("VW_OPENID_CLIENT_SECRET")
-OPENID_SCOPE = "openid profile bitbots-drink-transactions"
+OPENID_SCOPE = env.str("VW_OPENID_SCOPE")
 
 SILENCED_SYSTEM_CHECKS = ["security.W003"]
 
@@ -156,7 +156,6 @@ SPECTACULAR_SETTINGS = {
     "COMPONENT_SPLIT_PATCH": False,
     "SERVE_INCLUDE_SCHEMA": False,
     "VERSION": VERSION,
-    "CONTACT": {"name": "Bit-Bots", "url": "https://bit-bots.de", "email": "info@bit-bots.de"},
     "SWAGGER_UI_DIST": "SIDECAR",
     "SWAGGER_UI_FAVICON_HREF": "SIDECAR",
     "SWAGGER_UI_OAUTH2_CONFIG": {

@@ -1,5 +1,5 @@
 """
-WSGI config for bitbots_drinks project.
+WSGI config for vinywaji project.
 
 It exposes the WSGI callable as a module-level variable named ``application``.
 

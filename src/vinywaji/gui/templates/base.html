@@ -5,9 +5,9 @@
 <head>
     <meta charset="UTF-8">
     {% if page_title %}
-        <title>{{ page_title }} – BitBots Drinks</title>
+        <title>{{ page_title }} – {{ title }}</title>
     {% else %}
-        <title>BitBots Drinks</title>
+        <title>{{ title }}</title>
     {% endif %}
     {% block  head %}
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css"/>
