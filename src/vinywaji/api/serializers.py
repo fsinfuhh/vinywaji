@@ -10,6 +10,7 @@ class UserSerializer(serializers.ModelSerializer):
 
     transactions = serializers.PrimaryKeyRelatedField(many=True, read_only=True)
 
+
 class TransactionSerializer(serializers.ModelSerializer):
     class Meta:
         model = models.Transaction
