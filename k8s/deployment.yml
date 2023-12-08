@@ -3,6 +3,8 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: vinywaji
+  labels:
+    mafiasi.de/user-restartable: "true"
 spec:
   selector:
     matchLabels:
