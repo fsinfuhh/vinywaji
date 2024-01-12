@@ -1,7 +1,8 @@
+import json
 import math
 
 from django.conf import settings
-from django.http import HttpRequest
+from django.http import HttpRequest, HttpResponse
 from django.shortcuts import render
 from django.views import View
 
@@ -25,3 +26,22 @@ class DashboardView(View):
             )
 
         return render(request, "views/dashboard.html", context)
+
+
+def manifest(request):
+    if settings.MAFIASI_COLORS:
+        theme_color = "#02837c"
+    else:
+        theme_color = "#ff8f00"
+
+    content = {
+        "name": settings.ORG_NAME,
+        "short_name": settings.ORG_NAME,
+        "theme_color": theme_color,
+        "background_color": "#ffffff",
+        "display": "browser",
+        "orientation": "portrait",
+        "scope": "/",
+        "start_url": "/",
+    }
+    return HttpResponse(json.dumps(content), content_type="application/json")
