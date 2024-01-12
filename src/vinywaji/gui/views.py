@@ -39,7 +39,7 @@ def manifest(request):
         "short_name": settings.ORG_NAME,
         "theme_color": theme_color,
         "background_color": "#ffffff",
-        "display": "browser",
+        "display": "standalone",
         "orientation": "portrait",
         "scope": "/",
         "start_url": "/",
