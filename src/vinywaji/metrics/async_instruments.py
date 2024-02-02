@@ -1,8 +1,8 @@
 from typing import Iterable
 
+from django.db.models import Avg, Sum
 from opentelemetry import metrics
 from opentelemetry.metrics import CallbackOptions, Observation
-from django.db.models import Sum, Avg
 
 from vinywaji.core import models
 
