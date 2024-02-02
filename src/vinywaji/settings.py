@@ -7,7 +7,7 @@ https://docs.djangoproject.com/en/3.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
-import os
+
 from pathlib import Path
 
 from environs import Env
@@ -26,27 +26,33 @@ SERVED_OVER_HTTPS = env.bool("VW_SERVED_OVER_HTTPS", default=False)
 TRUST_REVERSE_PROXY = env.bool("VW_TRUST_REVERSE_PROXY", default=False)
 SECRET_KEY = env.str("VW_SECRET_KEY")
 ALLOWED_HOSTS = env.list("VW_ALLOWED_HOSTS")
+ENABLE_METRICS = env.bool("VW_ENABLE_METRICS", default=False)
 
 DATABASES = {"default": env.dj_db_url("VW_DB")}
 CACHES = {"default": env.dj_cache_url("VW_CACHE", default="dummy://" if DEBUG else "locmem://")}
 
 INSTALLED_APPS = [
-    "django.contrib.auth",
-    "django.contrib.admin",
-    "django.contrib.contenttypes",
-    "django.contrib.sessions",
-    "django.contrib.messages",
-    "django.contrib.staticfiles",
-    "django.contrib.humanize",
-    "whitenoise.runserver_nostatic",
-    "rest_framework",
-    "drf_spectacular",
-    "drf_spectacular_sidecar",
-    "mathfilters",
-    "simple_openid_connect.integrations.django",
-    "vinywaji.core",
-    "vinywaji.api",
-    "vinywaji.gui",
+    i
+    for i in [
+        "django.contrib.auth",
+        "django.contrib.admin",
+        "django.contrib.contenttypes",
+        "django.contrib.sessions",
+        "django.contrib.messages",
+        "django.contrib.staticfiles",
+        "django.contrib.humanize",
+        "whitenoise.runserver_nostatic",
+        "rest_framework",
+        "drf_spectacular",
+        "drf_spectacular_sidecar",
+        "mathfilters",
+        "simple_openid_connect.integrations.django",
+        "vinywaji.core",
+        "vinywaji.api",
+        "vinywaji.gui",
+        "vinywaji.metrics" if ENABLE_METRICS else None,
+    ]
+    if i is not None
 ]
 
 MIDDLEWARE = [
