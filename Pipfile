@@ -4,12 +4,12 @@ verify_ssl = true
 name = "pypi"
 
 [packages]
-django = "==4.1"
+django = "~=5.0"
 djangorestframework = "~=3.14"
 drf-spectacular = { version = "~=0.25.1", extras = ["sidecar"] }
 whitenoise = "~=6.3"
 django-mathfilters = "~=0.1.2"
-simple_openid_connect = { version = "~=0.2.4", extras = ["django", "djangorestframework"] }
+simple_openid_connect = { version = "~=1.0", extras = ["django", "djangorestframework"] }
 environs = { version = "~=9.5", extras = ["django"] }
 opentelemetry-api = "~=1.22.0"
 opentelemetry-sdk = "~=1.22.0"
