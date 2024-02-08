@@ -27,8 +27,8 @@ SERVED_OVER_HTTPS = env.bool("VW_SERVED_OVER_HTTPS", default=False)
 TRUST_REVERSE_PROXY = env.bool("VW_TRUST_REVERSE_PROXY", default=False)
 SECRET_KEY = env.str("VW_SECRET_KEY")
 ALLOWED_HOSTS = env.list("VW_ALLOWED_HOSTS")
-ALLOWED_METRICS_IPS = [
-    ip_network(i) for i in env.list("VW_ALLOWED_METRICS_IPS", default=["127.0.0.0/8", "::/64"])
+ALLOWED_METRICS_NETS = [
+    ip_network(i) for i in env.list("VW_ALLOWED_METRICS_NETS", default=["127.0.0.0/8", "::/64"])
 ]
 
 DATABASES = {"default": env.dj_db_url("VW_DB")}
