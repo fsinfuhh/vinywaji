@@ -11,6 +11,9 @@ whitenoise = "~=6.3"
 django-mathfilters = "~=0.1.2"
 simple_openid_connect = { version = "~=0.2.4", extras = ["django", "djangorestframework"] }
 environs = { version = "~=9.5", extras = ["django"] }
+opentelemetry-api = "~=1.22.0"
+opentelemetry-sdk = "~=1.22.0"
+opentelemetry-exporter-prometheus = "*"
 
 [dev-packages]
 pre-commit = "*"

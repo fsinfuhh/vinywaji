@@ -7,7 +7,8 @@ https://docs.djangoproject.com/en/3.2/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
-import os
+
+from ipaddress import ip_network
 from pathlib import Path
 
 from environs import Env
@@ -26,6 +27,9 @@ SERVED_OVER_HTTPS = env.bool("VW_SERVED_OVER_HTTPS", default=False)
 TRUST_REVERSE_PROXY = env.bool("VW_TRUST_REVERSE_PROXY", default=False)
 SECRET_KEY = env.str("VW_SECRET_KEY")
 ALLOWED_HOSTS = env.list("VW_ALLOWED_HOSTS")
+ALLOWED_METRICS_NETS = [
+    ip_network(i) for i in env.list("VW_ALLOWED_METRICS_NETS", default=["127.0.0.0/8", "::/64"])
+]
 
 DATABASES = {"default": env.dj_db_url("VW_DB")}
 CACHES = {"default": env.dj_cache_url("VW_CACHE", default="dummy://" if DEBUG else "locmem://")}
@@ -47,6 +51,7 @@ INSTALLED_APPS = [
     "vinywaji.core",
     "vinywaji.api",
     "vinywaji.gui",
+    "vinywaji.metrics",
 ]
 
 MIDDLEWARE = [
