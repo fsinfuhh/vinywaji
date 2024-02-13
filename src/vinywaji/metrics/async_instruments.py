@@ -66,7 +66,7 @@ def calc_transaction_aggregates(_options: CallbackOptions) -> Iterable[Observati
 def calc_balances(_options: CallbackOptions) -> Iterable[Observation]:
     # aggregate all negative transactions
     balances = [
-        i["current_balance"]
+        i["current_balance"] or 0
         for i in models.User.objects.all().annotate(current_balance=Sum("transactions__amount")).values()
     ]
 
