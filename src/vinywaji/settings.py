@@ -13,8 +13,13 @@ from pathlib import Path
 
 from environs import Env
 
+# Access runtime settings via `MY_SETTING = env.str("MY_SETTING")` (or user other types e.g. `env.bool()`)
 env = Env()
-env.read_env(env.path("VW_ENV_FILE", default=".env"))
+env.read_env(".env", override=True)
+env.read_env(".env.local", override=True)
+APP_MODE = env.str("APP_MODE", default="dev")
+env.read_env(f".env.{APP_MODE}", override=True)
+env.read_env(f".env.{APP_MODE}.local", override=True)
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent

@@ -24,3 +24,4 @@ ENV VW_DATABASE_URL=sqlite:///app/data/db.sqlite
 # add additional metadata
 VOLUME /app/data
 EXPOSE 80/tcp
+ENV APP_MODE=prod

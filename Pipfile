@@ -20,6 +20,8 @@ pre-commit = "*"
 isort = "*"
 black = "*"
 ipython = "*"
+pytest = "*"
+pytest-django = "*"
 
 [requires]
 python_version = "3"

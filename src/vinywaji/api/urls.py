@@ -14,10 +14,10 @@ router.register(r"transactions", views.TransactionViewSet, basename="transaction
 
 
 urlpatterns = [
-    path("schema", SpectacularAPIView.as_view(), name="schema"),
+    path("schema", SpectacularAPIView.as_view(), name="openapi_schema"),
     path(
         "schema/swagger",
-        SpectacularSwaggerView.as_view(url_name="schema"),
+        SpectacularSwaggerView.as_view(url_name="openapi_schema"),
         name="swagger-ui",
     ),
     path(

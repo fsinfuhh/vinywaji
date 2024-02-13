@@ -1,4 +1,4 @@
-name: checks
+name: test
 on:
   - push
   - workflow_dispatch
@@ -18,3 +18,19 @@ jobs:
           path: ~/.cache/pre-commit
           key: pre-commit|${{ env.pythonLocation }}|${{ hashFiles('.pre-commit-config.yaml') }}
       - run: pre-commit run --show-diff-on-failure --color=always --all-files
+
+  test-backend:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/setup-python@v4
+        with:
+          python-version: 3.11
+      - name: install system dependencies
+        run: pip install pipenv
+      - uses: actions/checkout@v4
+      - name: install project dependencies
+        run: pipenv sync --dev
+      - name: manage.py --help
+        run: pipenv run ./src/manage.py --help
+      - name: pytest
+        run: pipenv run pytest
