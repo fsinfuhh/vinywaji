@@ -1,3 +1,5 @@
+from functools import reduce
+from operator import add
 from typing import Iterable
 
 from django.db.models import Avg, Sum
@@ -14,11 +16,12 @@ def create_async_instruments():
         "vinywaji_transactions",
         callbacks=[count_transactions],
         description="The total number of transactions recorded in vinywaji",
+        unit="count",
     )
     vinywaji_meter.create_observable_gauge(
-        "vinywaji_assets",
+        "vinywaji_balances",
         callbacks=[calc_asset_aggregates],
-        description="The aggregated value of assets recorded in vinywaji (in euro-cent) ",
+        description="The aggregated value of account balances recorded in vinywaji (in euro-cent) ",
         unit="ct",
     )
 
@@ -33,42 +36,29 @@ def count_transactions(_options: CallbackOptions) -> Iterable[Observation]:
 
 def calc_asset_aggregates(_options: CallbackOptions) -> Iterable[Observation]:
     # aggregate all negative transactions
-    negative_aggregate = models.Transaction.objects.filter(amount__lt=0).aggregate(
-        Sum("amount"), Avg("amount")
-    )
-    yield Observation(
-        value=negative_aggregate["amount__sum"] or 0,
-        attributes={"asset_type": "negative", "aggregate_type": "sum"},
-    )
-    yield Observation(
-        value=negative_aggregate["amount__avg"] or 0,
-        attributes={"asset_type": "negative", "aggregate_type": "avg"},
-    )
+    balances = [
+        i["current_balance"]
+        for i in models.User.objects.all().annotate(current_balance=Sum("transactions__amount")).values()
+    ]
 
-    # aggregate all positive transactions
-    positive_aggregate = models.Transaction.objects.filter(amount__gt=0).aggregate(
-        Sum("amount"), Avg("amount")
+    yield Observation(attributes={"balances": "all", "aggregate_type": "sum"}, value=reduce(add, balances, 0))
+    yield Observation(
+        attributes={"balances": "all", "aggregate_type": "avg"},
+        value=reduce(add, balances, 0) / len(balances),
     )
     yield Observation(
-        value=positive_aggregate["amount__avg"] or 0,
-        attributes={
-            "asset_type": "positive",
-            "aggregate_type": "sum",
-        },
+        attributes={"balances": "negative", "aggregate_type": "sum"},
+        value=reduce(add, (i for i in balances if i < 0), 0),
     )
     yield Observation(
-        value=positive_aggregate["amount__sum"] or 0,
-        attributes={
-            "asset_type": "positive",
-            "aggregate_type": "avg",
-        },
+        attributes={"balances": "negative", "aggregate_type": "avg"},
+        value=reduce(add, (i for i in balances if i < 0), 0) / len(balances),
     )
-
-    # calculate totals based on previous data
     yield Observation(
-        value=(positive_aggregate["amount__sum"] or 0) + (negative_aggregate["amount__sum"] or 0),
-        attributes={
-            "asset_type": "total",
-            "aggregate_type": "sum",
-        },
+        attributes={"balances": "positive", "aggregate_type": "sum"},
+        value=reduce(add, (i for i in balances if i > 0), 0),
+    )
+    yield Observation(
+        attributes={"balances": "positive", "aggregate_type": "avg"},
+        value=reduce(add, (i for i in balances if i > 0), 0) / len(balances),
     )
