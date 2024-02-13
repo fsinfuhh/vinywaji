@@ -70,12 +70,12 @@ def calc_balances(_options: CallbackOptions) -> Iterable[Observation]:
         for i in models.User.objects.all().annotate(current_balance=Sum("transactions__amount")).values()
     ]
 
-    yield Observation(attributes={"balances": "all", "aggregate_type": "sum"}, value=reduce(add, balances, 0))
+    yield Observation(attributes={"balances": "all"}, value=reduce(add, balances, 0))
     yield Observation(
-        attributes={"balances": "negative", "aggregate_type": "sum"},
+        attributes={"balances": "negative"},
         value=reduce(add, (i for i in balances if i < 0), 0),
     )
     yield Observation(
-        attributes={"balances": "positive", "aggregate_type": "sum"},
+        attributes={"balances": "positive"},
         value=reduce(add, (i for i in balances if i > 0), 0),
     )
