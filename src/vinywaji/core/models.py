@@ -12,7 +12,8 @@ class User(AbstractUser):
     @property
     def current_balance(self) -> int:
         """How much money the user currently has in their account"""
-        return sum((t.amount for t in self.transactions.all()))
+        aggregate = self.transactions.aggregate(transaction_sum=models.Sum("amount"))
+        return aggregate["transaction_sum"]
 
 
 class Transaction(models.Model):
