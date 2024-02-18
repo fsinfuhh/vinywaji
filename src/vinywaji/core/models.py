@@ -13,7 +13,7 @@ class User(AbstractUser):
     def current_balance(self) -> int:
         """How much money the user currently has in their account"""
         aggregate = self.transactions.aggregate(transaction_sum=models.Sum("amount"))
-        return aggregate["transaction_sum"]
+        return aggregate["transaction_sum"] or 0
 
 
 class Transaction(models.Model):
