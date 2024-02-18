@@ -136,7 +136,7 @@ SECURE_HSTS_PRELOAD = True
 CSRF_COOKIE_HTTPONLY = True
 
 AUTH_USER_MODEL = "vinywaji_core.User"
-LOGIN_URL = "simple_openid_connect_django:login"
+LOGIN_URL = "simple_openid_connect:login"
 LOGIN_REDIRECT_URL = "/"
 LOGOUT_REDIRECT_URL = "/"
 
