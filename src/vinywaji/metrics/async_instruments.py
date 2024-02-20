@@ -48,12 +48,22 @@ def count_transactions(_options: CallbackOptions) -> Iterable[Observation]:
 
 def count_users(_options: CallbackOptions) -> Iterable[Observation]:
     n = models.User.objects.all().count()
-    yield Observation(value=n)
+    n_balance = (
+        models.User.objects.annotate(current_balance=Sum("transactions__amount", default=0))
+        .exclude(current_balance=0)
+        .count()
+    )
+    yield Observation(attributes={"filter": "all"}, value=n)
+    yield Observation(attributes={"filter": "with_balance"}, value=n_balance)
 
 
 def calc_transaction_aggregates(_options: CallbackOptions) -> Iterable[Observation]:
-    negative_sum = models.Transaction.objects.all().filter(amount__gt=0).aggregate(sum=Sum("amount"))
-    positive_sum = models.Transaction.objects.all().filter(amount__lt=0).aggregate(sum=Sum("amount"))
+    negative_sum = (
+        models.Transaction.objects.all().filter(amount__gt=0).aggregate(sum=Sum("amount", default=0))
+    )
+    positive_sum = (
+        models.Transaction.objects.all().filter(amount__lt=0).aggregate(sum=Sum("amount", default=0))
+    )
 
     yield Observation(
         attributes={"transaction_type": "withdrawal"},
@@ -67,7 +77,9 @@ def calc_balances(_options: CallbackOptions) -> Iterable[Observation]:
     # aggregate all negative transactions
     balances = [
         i["current_balance"] or 0
-        for i in models.User.objects.all().annotate(current_balance=Sum("transactions__amount")).values()
+        for i in models.User.objects.all()
+        .annotate(current_balance=Sum("transactions__amount", default=0))
+        .values()
     ]
 
     yield Observation(attributes={"balances": "all"}, value=reduce(add, balances, 0))
