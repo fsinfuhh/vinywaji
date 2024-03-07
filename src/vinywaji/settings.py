@@ -140,6 +140,7 @@ LOGIN_URL = "simple_openid_connect:login"
 LOGIN_REDIRECT_URL = "/"
 LOGOUT_REDIRECT_URL = "/"
 
+OPENID_PROVIDER_NAME = env.str("VW_OPENID_PROVIDER_NAME", default="mafiasi")
 OPENID_ISSUER = env.str("VW_OPENID_ISSUER", default="https://identity.mafiasi.de/realms/mafiasi")
 OPENID_CLIENT_ID = env.str("VW_OPENID_CLIENT_ID")
 OPENID_CLIENT_SECRET = env.str("VW_OPENID_CLIENT_SECRET")

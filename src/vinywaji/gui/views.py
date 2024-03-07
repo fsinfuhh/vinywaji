@@ -10,6 +10,7 @@ from django.views import View
 class DashboardView(View):
     def get(self, request: HttpRequest):
         context = {
+            "openid_provider_name": settings.OPENID_PROVIDER_NAME,
             "mafiasi_colors": settings.MAFIASI_COLORS,
             "title": settings.ORG_NAME,
         }
@@ -44,4 +45,5 @@ def manifest(request):
         "scope": "/",
         "start_url": "/",
     }
+
     return HttpResponse(json.dumps(content), content_type="application/json")
