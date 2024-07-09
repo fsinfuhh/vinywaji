@@ -1,0 +1,21 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block authorized-content %}
+    <h4>Profile Settings</h4>
+
+    <section>
+        <h5>Basic Information</h5>
+        <div>
+            <span>Username:</label>
+            <span>{{ request.user }} </span>
+        </div>
+    </section>
+
+    <section>
+        <h5>Webhooks</h5>
+        <div>
+            TODO: Put webhook configuration here
+        </div>
+    </section>
+{% endblock %}

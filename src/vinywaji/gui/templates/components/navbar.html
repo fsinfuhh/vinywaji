@@ -7,6 +7,7 @@
             {% if request.user.is_anonymous %}
                 <li><a href="{% url 'simple_openid_connect:login' %}">Login</a></li>
             {% else %}
+                <li><a href="{% url 'profile' %}">Profile</a></li>
                 <li><a href="{% url 'simple_openid_connect:logout' %}">Logout</a></li>
             {% endif %}
         </ul>

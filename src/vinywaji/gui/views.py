@@ -5,6 +5,7 @@ from django.conf import settings
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import render
 from django.views import View
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 
 class DashboardView(View):
@@ -27,6 +28,24 @@ class DashboardView(View):
             )
 
         return render(request, "views/dashboard.html", context)
+
+
+class ProfileView(LoginRequiredMixin, View):
+    def get(self, request: HttpRequest):
+        context = {
+            "openid_provider_name": settings.OPENID_PROVIDER_NAME,
+            "mafiasi_colors": settings.MAFIASI_COLORS,
+            "title": settings.ORG_NAME,
+        }
+        if not request.user.is_anonymous:
+            context.update({})
+        
+        return render(request, "views/profile.html", context)
+
+
+class WebhookTriggerView(View):
+    def get(self, request: HttpRequest, trigger: str):
+        return HttpResponse("OK")
 
 
 def manifest(request):

@@ -100,7 +100,7 @@ class WebhookConfig(models.Model):
         return f"Webhook {self.id} (/{self.trigger_key})"
 
     def get_absolute_url(self) -> str:
-        return reverse("webhook-trigger", kwargs={"pk": self.pk})
+        return reverse("webhook-trigger", kwargs={"trigger": self.trigger_key})
 
     def trigger(self) -> Transaction:
         """
