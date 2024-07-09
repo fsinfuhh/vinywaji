@@ -33,11 +33,16 @@ TRUST_REVERSE_PROXY = env.bool("VW_TRUST_REVERSE_PROXY", default=False)
 SECRET_KEY = env.str("VW_SECRET_KEY")
 ALLOWED_HOSTS = env.list("VW_ALLOWED_HOSTS")
 ALLOWED_METRICS_NETS = [
-    ip_network(i) for i in env.list("VW_ALLOWED_METRICS_NETS", default=["127.0.0.0/8", "::/64"])
+    ip_network(i)
+    for i in env.list("VW_ALLOWED_METRICS_NETS", default=["127.0.0.0/8", "::/64"])
 ]
 
 DATABASES = {"default": env.dj_db_url("VW_DB")}
-CACHES = {"default": env.dj_cache_url("VW_CACHE", default="dummy://" if DEBUG else "locmem://")}
+CACHES = {
+    "default": env.dj_cache_url(
+        "VW_CACHE", default="dummy://" if DEBUG else "locmem://"
+    )
+}
 
 INSTALLED_APPS = [
     "django.contrib.auth",
@@ -95,7 +100,9 @@ WSGI_APPLICATION = "vinywaji.wsgi.application"
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
 
 AUTH_PASSWORD_VALIDATORS = [
-    {"NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator"},
+    {
+        "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator"
+    },
     {"NAME": "django.contrib.auth.password_validation.MinimumLengthValidator"},
     {"NAME": "django.contrib.auth.password_validation.CommonPasswordValidator"},
     {"NAME": "django.contrib.auth.password_validation.NumericPasswordValidator"},
@@ -141,7 +148,9 @@ LOGIN_REDIRECT_URL = "/"
 LOGOUT_REDIRECT_URL = "/"
 
 OPENID_PROVIDER_NAME = env.str("VW_OPENID_PROVIDER_NAME", default="mafiasi")
-OPENID_ISSUER = env.str("VW_OPENID_ISSUER", default="https://identity.mafiasi.de/realms/mafiasi")
+OPENID_ISSUER = env.str(
+    "VW_OPENID_ISSUER", default="https://identity.mafiasi.de/realms/mafiasi"
+)
 OPENID_CLIENT_ID = env.str("VW_OPENID_CLIENT_ID")
 OPENID_CLIENT_SECRET = env.str("VW_OPENID_CLIENT_SECRET")
 OPENID_SCOPE = env.str("VW_OPENID_SCOPE")

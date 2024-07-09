@@ -25,7 +25,9 @@ class Command(BaseCommand):
 
         # re-add users
         for user_data in (
-            i for i in fixture_json if i["model"] == "django_auth_mafiasi.mafiasiauthmodeluser"
+            i
+            for i in fixture_json
+            if i["model"] == "django_auth_mafiasi.mafiasiauthmodeluser"
         ):
             logger.info(
                 "adding user %s with openid sub %s",
@@ -41,8 +43,12 @@ class Command(BaseCommand):
             )
 
         # re-add transactions
-        for transact_data in (i for i in fixture_json if i["model"] == "vinywaji_core.transaction"):
-            user = openid_models.OpenidUser.objects.get(sub=transact_data["fields"]["user"]).user
+        for transact_data in (
+            i for i in fixture_json if i["model"] == "vinywaji_core.transaction"
+        ):
+            user = openid_models.OpenidUser.objects.get(
+                sub=transact_data["fields"]["user"]
+            ).user
             parsed_datetime = timezone.datetime.strptime(
                 transact_data["fields"]["time"], "%Y-%m-%dT%H:%M:%S.%fZ"
             )
