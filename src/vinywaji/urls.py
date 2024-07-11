@@ -10,5 +10,6 @@ urlpatterns = [
     path("api/", include("vinywaji.api.urls")),
     path("metrics/", include("vinywaji.metrics.urls")),
     path("", include("vinywaji.gui.urls")),
-    path("__reload__/", include("django_browser_reload.urls")) if settings.DEBUG else None,
 ]
+if settings.DEBUG:
+    urlpatterns.append(path("__reload__/", include("django_browser_reload.urls")))

@@ -59,8 +59,10 @@ INSTALLED_APPS = [
     "vinywaji.metrics",
     "macros",
     "tailwind",
-    "django_browser_reload" if DEBUG else None,
 ]
+
+if DEBUG:
+    INSTALLED_APPS.append("django_browser_reload")
 
 MIDDLEWARE = [
     "whitenoise.middleware.WhiteNoiseMiddleware",
@@ -72,8 +74,10 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "simple_openid_connect.integrations.django.middleware.TokenVerificationMiddleware",
-    "django_browser_reload.middleware.BrowserReloadMiddleware" if DEBUG else None,
 ]
+
+if DEBUG:
+    MIDDLEWARE.append("django_browser_reload.middleware.BrowserReloadMiddleware")
 
 ROOT_URLCONF = "vinywaji.urls"
 
