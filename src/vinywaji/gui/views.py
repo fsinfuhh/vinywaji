@@ -54,9 +54,9 @@ class WebhookTriggerView(View):
         webhook = WebhookConfig.objects.filter(trigger_key=trigger)
         if len(webhook) == 1:
             webhook[0].trigger()
-            return HttpResponse("OK")
+            return HttpResponse("OK", status_code=200)
         else:
-            return HttpResponse("Failed")
+            return HttpResponse("Failed", status_code=404)
 
 
 def manifest(request):
