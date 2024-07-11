@@ -1,21 +1,31 @@
 {% load mathfilters %}
 {% load humanize %}
 
-<div class="card transaction {% if transaction.amount < 0 %}amber amber lighten-4{% else %}light-green lighten-4{% endif %}">
-    <div class="card-content">
-        <span class="card-title">
-            {% if transaction.amount < 0 %}
-                {{ transaction.amount | abs | div:100 | floatformat:2 | intcomma }}€ purchase
-            {% elif transaction.amount == 0 %}
-                {{ 0 }}€ transaction (why???)
-            {% else %}
-                {{ transaction.amount | abs | div:100 | floatformat:2 | intcomma }}€ deposit
+<div class="rounded-2xl py-2 px-4 shadow-lg flex flex-col {% if transaction.amount < 0 %}bg-orange-200 dark:bg-orange-700{% else %}bg-lime-200 dark:bg-lime-700{% endif %}">
+    <div class="flex justify-between text-gray-600 dark:text-gray-400">
+        <span>
+            {% if transaction.amount < 0 %}purchase
+            {% elif transaction.amount == 0 %}transaction (why???)
+            {% else %}deposit
             {% endif %}
         </span>
-        {% if trnsaction.description != "" %}
-            <span>{{ transaction.description }}</span>
+        <span class="italic">
+        {{ transaction.time | naturaltime }}
+    </span>
+    </div>
+    <div class="grid grid-cols-1 sm:grid-cols-4">
+        <span class="text-2xl font-bold">
+            {% if transaction.amount < 0 %}
+                {{ transaction.amount | abs | div:100 | floatformat:2 | intcomma }}
+            {% elif transaction.amount == 0 %}
+                {{ 0 }}
+            {% else %}
+                {{ transaction.amount | abs | div:100 | floatformat:2 | intcomma }}
+            {% endif %}
+            €
+        </span>
+        {% if transaction.description != "" %}
+            <span class="col-span-3">{{ transaction.description }}</span>
         {% endif %}
-        <div class="grow"></div>
-        <span>{{ transaction.time | naturaltime }}</span>
     </div>
 </div>

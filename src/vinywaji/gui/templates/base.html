@@ -1,4 +1,4 @@
-{% load static %}
+{% load static tailwind_tags %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -11,45 +11,18 @@
     {% endif %}
     {% block  head %}
         <link rel="manifest" href="{% url 'manifest' %}">
+        {% tailwind_css %}
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
         {% if page_description %}
             <meta name="description" content="{{ page_description }}">
         {% endif %}
-        {% if mafiasi_colors %}
-        <style type="text/css">
-        .color-primary {
-            background-color: #02837c;
-        }
-
-        .btn.color-primary:hover {
-            background-color: #00a49a;
-        }
-
-        /* label focus color */
-        .input-field input[type=text]:focus + label {
-            color: #02837c;
-        }
-        /* label underline focus color */
-        .input-field input[type=text]:focus {
-            border-bottom: 1px solid #02837c;
-            box-shadow: 0 1px 0 0 #02837c;
-        }
-        </style>
-        {% else %}
-        <style type="text/css">
-        .color-primary {
-            /* this is .amber.darken-3 */
-            background-color: #ff8f00;
-        }
-        </style>
-        {% endif %}
         {% block head-extra %}{% endblock %}
     {% endblock %}
 </head>
-<body>
+<body class="flex flex-col min-h-screen bg-gray-50 dark:bg-gray-900 text-black dark:text-white">
 {% block body %}
     {% include "components/navbar.html" %}
-    <div class="container">
+    <div class="w-full sm:max-w-xl lg:max-w-4xl mx-auto py-4 px-4 sm:px-0 grow">
 
         {% block content %}
             {% if request.user.is_anonymous %}
@@ -66,6 +39,8 @@
 
         {% endblock %}
     </div>
+    <hr>
+    {% include "components/footer.html" %}
     {% block scripts %}
         <script type="application/javascript" src="{% static 'base.js' %}"></script>
         {% block scripts-extra %}{% endblock %}

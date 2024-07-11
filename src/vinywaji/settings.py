@@ -62,6 +62,9 @@ INSTALLED_APPS = [
     "vinywaji.api",
     "vinywaji.gui",
     "vinywaji.metrics",
+    "macros",
+    "tailwind",
+    "django_browser_reload" if DEBUG else None,
 ]
 
 MIDDLEWARE = [
@@ -74,6 +77,7 @@ MIDDLEWARE = [
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
     "simple_openid_connect.integrations.django.middleware.TokenVerificationMiddleware",
+    "django_browser_reload.middleware.BrowserReloadMiddleware" if DEBUG else None,
 ]
 
 ROOT_URLCONF = "vinywaji.urls"
@@ -93,6 +97,8 @@ TEMPLATES = [
         },
     }
 ]
+
+TAILWIND_APP_NAME = 'vinywaji.gui'
 
 WSGI_APPLICATION = "vinywaji.wsgi.application"
 
@@ -201,6 +207,10 @@ LOGGING = {
         },
     },
 }
+
+INTERNAL_IPS = [
+    "127.0.0.1",
+]
 
 DEFAULT_AMOUNT = env.float("VW_DEFAULT_AMOUNT", default=1.5)
 MAFIASI_COLORS = env.bool("VW_MAFIASI_COLORS", default=False)
