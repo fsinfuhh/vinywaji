@@ -5,7 +5,7 @@
       action="{% url 'transaction-list' %}?currency=euro&type=deposit" method="post">
     {% csrf_token %}
     <div class="grid grid-cols-1 sm:grid-cols-3 justify-stretch gap-2">
-        {% usemacro input "Deposit Value (€)" "amount" value="1.5" type="number" required=True step="0.1" min="0.1" class="sm:col-span-2" %}
+        {% usemacro input "Deposit Value (€)" "amount" type="number" required=True step="0.1" min="0.1" class="sm:col-span-2" %}
 
         {% usemacro button "Deposit" color="lime" %}
     </div>
