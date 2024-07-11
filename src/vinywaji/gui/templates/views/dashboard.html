@@ -3,22 +3,19 @@
 {% load humanize %}
 
 {% block authorized-content %}
-    <h4>Your current balance is <b>{{ current_balance | floatformat:2 | intcomma }}</b>€</h4>
+    <h4 class="text-4xl leading-normal">
+        Your current balance is <b>{{ current_balance | floatformat:2 | intcomma }}</b>€
+    </h4>
 
-    <div class="divider"></div>
+    <hr class="py-2">
 
-    <div class="row section">
-        {% include "components/forms/record-purchase.html" %}
-    </div>
+    {% include "components/forms/record-purchase.html" %}
 
-    <div class="row section">
-        {% include "components/forms/pay-up.html" %}
-    </div>
+    {% include "components/forms/pay-up.html" %}
 
-
-    <h4>Past transactions</h4>
-    <div class="divider"></div>
-    <div class="row">
+    <h4 class="text-4xl leading-normal">Past transactions</h4>
+    <hr class="py-2">
+    <div class="flex flex-col gap-2">
         {% for transaction in transactions %}
             {% include "components/transaction.html" %}
         {% endfor %}

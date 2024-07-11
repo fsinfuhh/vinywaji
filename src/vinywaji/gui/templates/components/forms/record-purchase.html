@@ -1,16 +1,14 @@
-<form id="purchase" class="js-submit" action="{% url 'transaction-list' %}?currency=euro&type=purchase" method="post">
+{% load macros %}
+{% loadmacros "components/forms.html" %}
+
+<form id="purchase" class="js-submit mt-4 mb-8 sm:mb-2"
+      action="{% url 'transaction-list' %}?currency=euro&type=purchase" method="post">
     {% csrf_token %}
-    <div class="horizontal-align">
-        <div class="input-field">
-            <input id="purchase-value" class="validate" name="amount" placeholder="{{ default_amount }}" type="number" required step="0.1" value="{{ default_amount }}" min="0.1">
-            <label for="purchase-value">Purchase Value (€)</label>
-        </div>
+    <div class="grid grid-cols-2 sm:grid-cols-3 justify-stretch gap-2">
+        {% usemacro input "Purchase Value (€)" "amount" value="1.5" type="number" required=True step="0.1" %}
 
-        <div class="input-field">
-            <input id="purchase-description" name="description" placeholder="fritz-kola" type="text">
-            <label for="purchase-description">Description</label>
-        </div>
+        {% usemacro input "Description" "description" type="text" placeholder="fritz-kola" %}
 
-        <button class="btn btn-large color-primary" type="submit">Purchase</button>
+        {% usemacro button "Purchase" color="orange" class="col-span-2 sm:col-span-1" %}
     </div>
 </form>
