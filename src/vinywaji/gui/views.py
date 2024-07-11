@@ -7,6 +7,8 @@ from django.http import HttpRequest, HttpResponse
 from django.shortcuts import render
 from django.views import View
 
+from vinywaji.core.models import WebhookConfig
+
 
 class DashboardView(View):
     def get(self, request: HttpRequest):
@@ -38,14 +40,23 @@ class ProfileView(LoginRequiredMixin, View):
             "title": settings.ORG_NAME,
         }
         if not request.user.is_anonymous:
-            context.update({})
+            context.update(
+                {
+                    "webhooks": request.user.webhooks.all(),
+                }
+            )
 
         return render(request, "views/profile.html", context)
 
 
 class WebhookTriggerView(View):
     def get(self, request: HttpRequest, trigger: str):
-        return HttpResponse("OK")
+        webhook = WebhookConfig.objects.filter(trigger_key=trigger)
+        if len(webhook) == 1:
+            webhook[0].trigger()
+            return HttpResponse("OK")
+        else:
+            return HttpResponse("Failed")
 
 
 def manifest(request):

@@ -13,14 +13,64 @@
                 <dt class="font-bold">Username:</dt>
                 <dd>{{ request.user }} </dd>
             </div>
-
         </dl>
     </section>
 
     <section class="mt-4">
         <h5 class="text-2xl leading-normal">Webhooks</h5>
-        <div>
-            TODO: Put webhook configuration here
-        </div>
+
+        {% include "components/forms/add_webhook.html" %}
+
+        <hr class="border-gray-500 my-4">
+
+        {% csrf_token %}
+
+        <script>
+            const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+
+            async function writeClipboardText(text) {
+                try {
+                    await navigator.clipboard.writeText(text);
+                } catch (error) {
+                    console.error(error.message);
+                }
+            }
+
+            async function deleteWebhook(id) {
+                await fetch(`{% url 'webhook-list' %}${id}`, {
+                    "method": "DELETE",
+                    headers: {'X-CSRFToken': csrftoken},
+                }).then(() => {
+                    window.location.reload();
+                });
+            }
+        </script>
+
+        <dl>
+            {% for webhook in webhooks %}
+                <div class="grid grid-cols-3 gap-2 py-2 border-b border-gray-700">
+                    <dt class="font-bold flex items-center">
+                        {{ webhook.description }}
+                    </dt>
+                    <dd class="col-span-2 flex justify-between items-center">
+                        <div>
+                            <span class="min-w-12 inline-block">{{ webhook.amount }}</span>
+                            <span>{{ webhook.transaction_description }}</span>
+                        </div>
+                        <div>
+                            <button data-key="{{ webhook.trigger_key }}"
+                                    onclick="writeClipboardText(`{{ request.scheme }}://{{ request.META.HTTP_HOST }}{% url 'webhook-trigger' trigger=webhook.trigger_key %}`)"
+                                    class="text-center bg-primary-400 hover:bg-primary-500 dark:bg-primary-600 dark:hover:bg-primary-700 px-4 py-2 rounded-lg min-w-30">
+                                Copy URL
+                            </button>
+                            <button onclick="deleteWebhook('{{ webhook.id }}')"
+                                    class="text-center bg-red-400 hover:bg-red-500 dark:bg-red-600 dark:hover:bg-red-700 px-4 py-2 rounded-lg min-w-30">
+                                Delete
+                            </button>
+                        </div>
+                    </dd>
+                </div>
+            {% endfor %}
+        </dl>
     </section>
 {% endblock %}

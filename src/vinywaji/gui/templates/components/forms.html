@@ -6,7 +6,7 @@
     </button>
 {% endmacro %}
 
-{% macro input label name value="" type="text" step="1" min="0" placeholder="" required=False class="" %}
+{% macro input label name value="" type="text" step="1" min="" placeholder="" required=False class="" %}
     <div class="relative {{ class }}">
         <input type="{{ type }}" id="input_{{ name }}"
                class="block px-2.5 pb-2.5 pt-4 w-full text-sm text-gray-900 bg-transparent rounded-lg
@@ -14,7 +14,7 @@
                    dark:focus:border-blue-500 focus:outline-none focus:ring-0 focus:border-blue-600 peer"
                {% if type == 'number' %}inputmode="decimal"{% endif %}
                {% if type == 'number' %}step="{{ step }}"{% endif %}
-               {% if type == 'number' %}min="{{ min }}"{% endif %}
+               {% if type == 'number' and min %}min="{{ min }}"{% endif %}
                {% if required %}required{% endif %}
                placeholder="{% if placeholder %}{{ placeholder }}{% else %} {% endif %}"
                name="{{ name }}"
