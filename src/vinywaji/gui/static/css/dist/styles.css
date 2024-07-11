@@ -813,11 +813,6 @@ input[type=number] {
   margin-bottom: 1rem;
 }
 
-.my-2 {
-  margin-top: 0.5rem;
-  margin-bottom: 0.5rem;
-}
-
 .mb-8 {
   margin-bottom: 2rem;
 }
@@ -926,6 +921,10 @@ input[type=number] {
 .border-gray-300 {
   --tw-border-opacity: 1;
   border-color: rgb(209 213 219 / var(--tw-border-opacity));
+}
+
+.bg-black\/10 {
+  background-color: rgb(0 0 0 / 0.1);
 }
 
 .bg-gray-100 {
@@ -4851,18 +4850,6 @@ input[type=number] {
 .bg-white {
   --tw-bg-opacity: 1;
   background-color: rgb(255 255 255 / var(--tw-bg-opacity));
-}
-
-.bg-white\/50 {
-  background-color: rgb(255 255 255 / 0.5);
-}
-
-.bg-white\/10 {
-  background-color: rgb(255 255 255 / 0.1);
-}
-
-.bg-black\/10 {
-  background-color: rgb(0 0 0 / 0.1);
 }
 
 .px-2 {
