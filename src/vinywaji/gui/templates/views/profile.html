@@ -2,18 +2,23 @@
 {% load static %}
 
 {% block authorized-content %}
-    <h4>Profile Settings</h4>
+    <h4 class="text-4xl leading-normal">
+        Profile Settings
+    </h4>
 
-    <section>
-        <h5>Basic Information</h5>
-        <div>
-            <span>Username:</label>
-            <span>{{ request.user }} </span>
-        </div>
+    <section class="mt-4">
+        <h5 class="text-2xl leading-normal">Basic Information</h5>
+        <dl>
+            <div class="flex gap-2">
+                <dt class="font-bold">Username:</dt>
+                <dd>{{ request.user }} </dd>
+            </div>
+
+        </dl>
     </section>
 
-    <section>
-        <h5>Webhooks</h5>
+    <section class="mt-4">
+        <h5 class="text-2xl leading-normal">Webhooks</h5>
         <div>
             TODO: Put webhook configuration here
         </div>

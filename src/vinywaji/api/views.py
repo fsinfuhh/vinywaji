@@ -52,8 +52,6 @@ class UserViewSet(viewsets.ReadOnlyModelViewSet):
         ]
     )
 )
-
-
 class TransactionViewSet(
     viewsets.mixins.CreateModelMixin,
     viewsets.mixins.RetrieveModelMixin,
