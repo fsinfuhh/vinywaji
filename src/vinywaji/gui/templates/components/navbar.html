@@ -1,6 +1,6 @@
 <nav class="w-full sticky top-0 z-40">
     <div class="bg-primary-400 dark:bg-primary-600 text-black dark:text-white flex justify-between px-2 items-stretch">
-        <a href="/" class="text-[2.1rem] place-self-center">{{ title }}</a>
+        <a href="/" class="text-3xl font-bold place-self-center">{{ title }}</a>
         <ul class="flex items-stretch">
             {% if request.user.is_anonymous %}
                 <li><a class="block px-2 leading-[4rem] hover:bg-primary-700 transition-colors" href="{% url 'simple_openid_connect:login' %}">Login</a></li>
