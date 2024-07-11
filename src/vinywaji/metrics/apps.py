@@ -25,6 +25,8 @@ class MetricsConfig(AppConfig):
             }
         )
         metric_reader = PrometheusMetricReader()
-        meter_provider = MeterProvider(resource=resource, metric_readers=[metric_reader])
+        meter_provider = MeterProvider(
+            resource=resource, metric_readers=[metric_reader]
+        )
         metrics.set_meter_provider(meter_provider)
         async_instruments.create_async_instruments()

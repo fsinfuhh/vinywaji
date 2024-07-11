@@ -1,23 +1,33 @@
 import uuid
+import secrets
 
 from django.contrib.auth.models import AbstractUser
 from django.db import models
+from django.urls import reverse
 
 
 def uuid_default() -> "uuid.UUID":
     return uuid.uuid4()
 
 
+def webhook_trigger_default() -> str:
+    return secrets.token_urlsafe(64)
+
+
 class User(AbstractUser):
     @property
     def current_balance(self) -> int:
         """How much money the user currently has in their account"""
-        aggregate = self.transactions.aggregate(transaction_sum=models.Sum("amount", default=0))
+        aggregate = self.transactions.aggregate(
+            transaction_sum=models.Sum("amount", default=0)
+        )
         return aggregate["transaction_sum"]
 
 
 class Transaction(models.Model):
-    id = models.UUIDField(primary_key=True, default=uuid_default, help_text="The ID of this transaction")
+    id = models.UUIDField(
+        primary_key=True, default=uuid_default, help_text="The ID of this transaction"
+    )
     user = models.ForeignKey(
         to="User",
         on_delete=models.CASCADE,
@@ -34,7 +44,9 @@ class Transaction(models.Model):
         help_text="How much money was involved in this transaction in euro-cent. "
         "Negative amounts represent purchases while positive amounts represent deposits."
     )
-    time = models.DateTimeField(auto_now_add=True, help_text="When this transaction occurred")
+    time = models.DateTimeField(
+        auto_now_add=True, help_text="When this transaction occurred"
+    )
 
     def __str__(self):
         if self.description != "":

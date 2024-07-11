@@ -50,7 +50,7 @@ To start it:
 pipenv shell
 ./src/manage.py check --deploy
 ./src/manage.py migrate
-./src/manage.py
+./src/manage.py runserver
 ```
 
 ## Configuration
