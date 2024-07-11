@@ -56,7 +56,28 @@ pipenv shell
 
 ## Development
 
-While development, you need to run `./src/manage.py tailwind start` to update the tailwind styles automatically.
+Install dev dependencies:
+```shell
+pipenv shell
+pipenv install -d --ignore-pipfile
+```
+
+Install npm. E.g.:
+```shell
+sudo apt install nodejs npm
+```
+
+Run Django Dev Server
+```shell
+./src/manage.py check --deploy
+./src/manage.py migrate
+./src/manage.py runserver
+```
+
+Run tailwind server
+```shell
+./src/manage.py tailwind start
+```
 
 ## Configuration
 
