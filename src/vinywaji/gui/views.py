@@ -2,10 +2,10 @@ import json
 import math
 
 from django.conf import settings
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import render
 from django.views import View
-from django.contrib.auth.mixins import LoginRequiredMixin
 
 
 class DashboardView(View):
@@ -39,7 +39,7 @@ class ProfileView(LoginRequiredMixin, View):
         }
         if not request.user.is_anonymous:
             context.update({})
-        
+
         return render(request, "views/profile.html", context)
 
 
