@@ -50,8 +50,13 @@ To start it:
 pipenv shell
 ./src/manage.py check --deploy
 ./src/manage.py migrate
+./src/manage.py tailwind build
 ./src/manage.py runserver
 ```
+
+## Development
+
+While development, you need to run `./src/manage.py tailwind start` to update the tailwind styles automatically.
 
 ## Configuration
 
