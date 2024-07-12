@@ -209,7 +209,7 @@ INTERNAL_IPS = [
 ]
 
 DEFAULT_AMOUNT = env.float("VW_DEFAULT_AMOUNT", default=1.5)
-MAFIASI_COLORS = env.bool("VW_MAFIASI_COLORS", default=False)
+THEME_COLOR = env.str("VW_THEME_COLOR", default="teal")
 
 if SERVED_OVER_HTTPS:
     SESSION_COOKIE_SECURE = True

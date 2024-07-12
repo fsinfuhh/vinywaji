@@ -11,6 +11,7 @@
     {% endif %}
     {% block  head %}
         <link rel="manifest" href="{% url 'manifest' %}">
+        {% tailwind_preload_css %}
         {% tailwind_css %}
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
         {% if page_description %}

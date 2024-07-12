@@ -1,5 +1,7 @@
 const colors = require('tailwindcss/colors')
 
+const theme_color = process.env.VW_THEME_COLOR || 'teal';
+
 module.exports = {
     content: [
         /**
@@ -13,8 +15,8 @@ module.exports = {
     theme: {
         extend: {
             colors: {
-                primary: colors.teal,
-                neutral: colors.gray,
+                primary: colors[theme_color],
+                gray: colors.slate,
             },
             transitionProperty: {
                 'floating': 'transform, color, padding, top',

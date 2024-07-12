@@ -14,7 +14,6 @@ class DashboardView(View):
     def get(self, request: HttpRequest):
         context = {
             "openid_provider_name": settings.OPENID_PROVIDER_NAME,
-            "mafiasi_colors": settings.MAFIASI_COLORS,
             "title": settings.ORG_NAME,
         }
         if not request.user.is_anonymous:
@@ -36,7 +35,6 @@ class ProfileView(LoginRequiredMixin, View):
     def get(self, request: HttpRequest):
         context = {
             "openid_provider_name": settings.OPENID_PROVIDER_NAME,
-            "mafiasi_colors": settings.MAFIASI_COLORS,
             "title": settings.ORG_NAME,
         }
         if not request.user.is_anonymous:
@@ -60,15 +58,9 @@ class WebhookTriggerView(View):
 
 
 def manifest(request):
-    if settings.MAFIASI_COLORS:
-        theme_color = "#02837c"
-    else:
-        theme_color = "#ff8f00"
-
     content = {
         "name": settings.ORG_NAME,
         "short_name": settings.ORG_NAME,
-        "theme_color": theme_color,
         "background_color": "#ffffff",
         "display": "standalone",
         "orientation": "portrait",
