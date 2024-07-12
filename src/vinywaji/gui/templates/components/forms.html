@@ -1,7 +1,10 @@
 {% load macros %}
 
-{% macro button title type="submit" class="" color="primary" %}
-    <button class="bg-{{ color }}-400 hover:bg-{{ color }}-500 dark:bg-{{ color }}-600 dark:hover:bg-{{ color }}-700 px-4 py-2 rounded-lg min-w-30 {{ class }}" type="{{ type }}">
+{% macro button title type="submit" class="" color="primary" darkColor=False %}
+    <button class="bg-{{ color }}-400 hover:bg-{{ color }}-500
+    dark:bg-{% if darkColor %}{{ darkColor }}{% else %}{{ color }}{% endif %}-600
+    dark:hover:bg-{% if darkColor %}{{ darkColor }}{% else %}{{ color }}{% endif %}-700
+    px-4 py-2 rounded-lg min-w-30 {{ class }}" type="{{ type }}">
         {{ title }}
     </button>
 {% endmacro %}

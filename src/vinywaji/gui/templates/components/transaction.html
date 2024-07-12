@@ -1,8 +1,15 @@
 {% load mathfilters %}
 {% load humanize %}
 
-<div class="rounded-2xl py-2 px-4 shadow-lg flex flex-col {% if transaction.amount < 0 %}bg-orange-200 dark:bg-orange-700{% else %}bg-lime-200 dark:bg-lime-700{% endif %}">
-    <div class="flex justify-between text-gray-600 dark:text-gray-400">
+<div class="rounded-2xl py-2 px-4 shadow-lg flex flex-col
+        {% if transaction.amount < 0 %}
+            bg-orange-300 dark:bg-orange-900
+        {% elif transaction.amount == 0 %}
+            bg-gray-300 dark:bg-gray-700
+        {% else %}
+            bg-lime-300 dark:bg-green-900
+        {% endif %}">
+    <div class="flex justify-between text-gray-700 dark:text-gray-300">
         <span>
             {% if transaction.amount < 0 %}purchase
             {% elif transaction.amount == 0 %}transaction (why???)
