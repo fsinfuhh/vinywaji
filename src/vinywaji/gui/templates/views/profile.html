@@ -1,6 +1,8 @@
 {% extends "base.html" %}
 {% load custom_filters %}
 {% load static %}
+{% load macros %}
+{% loadmacros "components/forms.html" %}
 
 {% block authorized-content %}
     <h4 class="text-4xl leading-normal">
@@ -70,26 +72,14 @@
                                          bg-lime-300 dark:bg-green-900
                                      {% endif %}
                                   text-center rounded-lg">
-                                    {{ webhook.amount|toeuro }} €
+                                    {{ webhook.amount|toEuro }} €
                                 </span>
-
-
                             <span class="ml-4"><b>Description:</b> {{ webhook.transaction_description }}</span>
                         </div>
                         <div>
-                            <button data-key="{{ webhook.trigger_key }}"
-                                    onclick="writeClipboardText(`{{ request.scheme }}://
-
-
-
-                                            {{ request.META.HTTP_HOST }}{% url 'webhook-trigger' trigger=webhook.trigger_key %}`)"
-                                    class="text-center bg-primary-400 hover:bg-primary-500 dark:bg-primary-600 dark:hover:bg-primary-700 px-4 py-2 rounded-lg min-w-30">
-                                Copy URL
-                            </button>
-                            <button onclick="deleteWebhook('{{ webhook.id }}')"
-                                    class="text-center bg-red-400 hover:bg-red-500 dark:bg-red-600 dark:hover:bg-red-700 px-4 py-2 rounded-lg min-w-30">
-                                Delete
-                            </button>
+                            {% url 'webhook-trigger' trigger=webhook.trigger_key as webhook_url %}
+                            {% usemacro button "Copy URL" icon="copy" dataA=request.scheme dataB=request.META.HTTP_HOST dataC=webhook_url onclick="writeClipboardText(`${this.dataset.a}://${this.dataset.b}${this.dataset.c}`)" color="primary" %}
+                            {% usemacro button "Delete" icon="delete" dataA=webhook.id onclick="deleteWebhook(this.dataset.a)" color="red" %}
                         </div>
                     </dd>
                 </div>

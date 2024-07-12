@@ -4,7 +4,7 @@ register = template.Library()
 
 
 @register.filter
-def toeuro(value):
+def toEuro(value):
     try:
         value = int(value) / 100
         return f"{value:.2f}"

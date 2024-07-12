@@ -54,7 +54,7 @@
                 document.documentElement.classList.remove('dark')
             }
 
-            document.querySelector('#modeSwitch').dataset.mode = mode;
+            document.querySelector('#modeSwitch > [data-icon]').dataset.icon = mode;
         }
         updateMode();
 

@@ -1,11 +1,28 @@
 {% load macros %}
 
-{% macro button title type="submit" class="" color="primary" darkColor=False %}
+{% macro button title type="submit" class="" color="primary" icon=False onclick=False dataA=False dataB=False dataC=False darkColor=False %}
     <button class="bg-{{ color }}-400 hover:bg-{{ color }}-500
-    dark:bg-{% if darkColor %}{{ darkColor }}{% else %}{{ color }}{% endif %}-600
-    dark:hover:bg-{% if darkColor %}{{ darkColor }}{% else %}{{ color }}{% endif %}-700
-    px-4 py-2 rounded-lg min-w-30 {{ class }}" type="{{ type }}">
-        {{ title }}
+        dark:bg-{% if darkColor %}{{ darkColor }}{% else %}{{ color }}{% endif %}-600
+        dark:hover:bg-{% if darkColor %}{{ darkColor }}{% else %}{{ color }}{% endif %}-700
+        px-4 py-2 rounded-lg min-w-30 flex items-center justify-center {{ class }}"
+        type="{{ type }}"
+        {% if onclick %}
+            onclick="{{ onclick }}"
+        {% endif %}
+        {% if dataA %}
+            data-a="{{ dataA }}"
+        {% endif %}
+        {% if dataB %}
+            data-b="{{ dataB }}"
+        {% endif %}
+        {% if dataC %}
+            data-c="{{ dataC }}"
+        {% endif %}
+    >
+        {% if icon %}
+            <span data-icon="{{ icon }}" class="size-m mr-2"></span>
+        {% endif %}
+        <span>{{ title }}</span>
     </button>
 {% endmacro %}
 
