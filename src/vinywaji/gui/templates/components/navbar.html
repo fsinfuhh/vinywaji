@@ -2,11 +2,16 @@
     <div class="bg-primary-400 dark:bg-primary-600 text-black dark:text-white flex justify-between px-2 items-stretch">
         <a href="/" class="text-3xl font-bold place-self-center">{{ title }}</a>
         <ul class="flex items-stretch">
+            <li><a class="block px-2 leading-[4rem] hover:bg-primary-700 transition-colors" href="#"
+                   onclick="switchMode()" id="modeSwitch">Mode</a></li>
             {% if request.user.is_anonymous %}
-                <li><a class="block px-2 leading-[4rem] hover:bg-primary-700 transition-colors" href="{% url 'simple_openid_connect:login' %}">Login</a></li>
+                <li><a class="block px-2 leading-[4rem] hover:bg-primary-700 transition-colors"
+                       href="{% url 'simple_openid_connect:login' %}">Login</a></li>
             {% else %}
-                <li><a class="block px-2 leading-[4rem] hover:bg-primary-700 transition-colors" href="{% url 'profile' %}">Profile</a></li>
-                <li><a class="block px-2 leading-[4rem] hover:bg-primary-700 transition-colors" href="{% url 'simple_openid_connect:logout' %}">Logout</a></li>
+                <li><a class="block px-2 leading-[4rem] hover:bg-primary-700 transition-colors"
+                       href="{% url 'profile' %}">Profile</a></li>
+                <li><a class="block px-2 leading-[4rem] hover:bg-primary-700 transition-colors"
+                       href="{% url 'simple_openid_connect:logout' %}">Logout</a></li>
             {% endif %}
         </ul>
     </div>

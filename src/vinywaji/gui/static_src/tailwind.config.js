@@ -3,6 +3,7 @@ const colors = require('tailwindcss/colors')
 const theme_color = process.env.VW_THEME_COLOR || 'teal';
 
 module.exports = {
+    darkMode: 'selector',
     content: [
         /**
          * HTML. Paths to Django template files that will contain Tailwind CSS classes.
