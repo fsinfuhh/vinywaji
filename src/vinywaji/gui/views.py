@@ -54,7 +54,7 @@ class WebhookTriggerView(View):
             webhook[0].trigger()
             return HttpResponse("OK", status=200)
         else:
-            return HttpResponse("Failed", status=404)
+            return HttpResponse("Webhook not found", status=404)
 
 
 def manifest(request):

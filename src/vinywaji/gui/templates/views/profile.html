@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load custom_filters %}
 {% load static %}
 
 {% block authorized-content %}
@@ -18,6 +19,11 @@
 
     <section class="mt-4">
         <h5 class="text-2xl leading-normal">Webhooks</h5>
+
+        <p>
+            You can add webhooks for defined transactions.<br>
+            This gives you the ability to call them from custom clients e.g. in a smart home integration.
+        </p>
 
         {% include "components/forms/add_webhook.html" %}
 
@@ -54,12 +60,29 @@
                     </dt>
                     <dd class="col-span-2 flex justify-between items-center">
                         <div>
-                            <span class="min-w-12 inline-block">{{ webhook.amount }}</span>
-                            <span>{{ webhook.transaction_description }}</span>
+
+                                <span class="min-w-16 inline-block
+                                     {% if webhook.amount < 0 %}
+                                         bg-orange-300 dark:bg-orange-900
+                                     {% elif webhook.amount == 0 %}
+                                         bg-gray-300 dark:bg-gray-700
+                                     {% else %}
+                                         bg-lime-300 dark:bg-green-900
+                                     {% endif %}
+                                  text-center rounded-lg">
+                                    {{ webhook.amount|toeuro }} €
+                                </span>
+
+
+                            <span class="ml-4"><b>Description:</b> {{ webhook.transaction_description }}</span>
                         </div>
                         <div>
                             <button data-key="{{ webhook.trigger_key }}"
-                                    onclick="writeClipboardText(`{{ request.scheme }}://{{ request.META.HTTP_HOST }}{% url 'webhook-trigger' trigger=webhook.trigger_key %}`)"
+                                    onclick="writeClipboardText(`{{ request.scheme }}://
+
+
+
+                                            {{ request.META.HTTP_HOST }}{% url 'webhook-trigger' trigger=webhook.trigger_key %}`)"
                                     class="text-center bg-primary-400 hover:bg-primary-500 dark:bg-primary-600 dark:hover:bg-primary-700 px-4 py-2 rounded-lg min-w-30">
                                 Copy URL
                             </button>
