@@ -48,9 +48,11 @@ To start it:
 
 ```shell
 pipenv shell
+./src/manage.py tailwind install
 ./src/manage.py check --deploy
 ./src/manage.py migrate
 ./src/manage.py tailwind build
+./src/manage.py collectstatic
 ./src/manage.py runserver
 ```
 
@@ -58,13 +60,15 @@ pipenv shell
 
 Install dev dependencies:
 ```shell
-pipenv shell
+
 pipenv install -d --ignore-pipfile
 ```
 
 Install npm. E.g.:
 ```shell
 sudo apt install nodejs npm
+pipenv shell
+./src/manage.py tailwind install
 ```
 
 Run Django Dev Server

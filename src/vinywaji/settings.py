@@ -35,7 +35,6 @@ ALLOWED_HOSTS = env.list("VW_ALLOWED_HOSTS")
 ALLOWED_METRICS_NETS = [
     ip_network(i) for i in env.list("VW_ALLOWED_METRICS_NETS", default=["127.0.0.0/8", "::/64"])
 ]
-NPM_BIN_PATH = "/usr/bin/npm"
 
 DATABASES = {"default": env.dj_db_url("VW_DB")}
 CACHES = {"default": env.dj_cache_url("VW_CACHE", default="dummy://" if DEBUG else "locmem://")}
