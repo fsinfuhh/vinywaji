@@ -7,7 +7,7 @@
     <div class="grid grid-cols-2 justify-stretch gap-2">
         {% usemacro input "Description" "description" type="text" class="col-span-full" %}
 
-        {% usemacro input "Transaction amount (ct)" "amount" type="number" placeholder="150" required=True step="0.1" %}
+        {% usemacro input "Transaction amount in ct (positive is deposit & negative is purchase)" "amount" type="number" placeholder="150" required=True step="1" %}
 
         {% usemacro input "Transaction description" "transaction_description" type="text" placeholder="fritz-kola" %}
 
