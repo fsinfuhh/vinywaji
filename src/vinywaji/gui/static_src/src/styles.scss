@@ -1,0 +1,84 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  input[type="number"]::-webkit-inner-spin-button,
+  input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  input[type=number] {
+    -moz-appearance: textfield;
+  }
+}
+
+
+span[data-icon] {
+  display: inline-block;
+  vertical-align: text-top;
+  width: 1em;
+  height: 1em;
+  mask-size: contain;
+  mask-position: center;
+  mask-repeat: no-repeat;
+  background-color: currentColor;
+  flex-shrink: 0;
+
+  &.size-m {
+    font-size: 1.2rem
+  }
+
+  &.size-l {
+    font-size: 1.5rem
+  }
+
+  &.size-xl {
+    font-size: 2rem
+  }
+
+  &[data-icon="user"] {
+    mask-image: url(/static/icons/user-solid.svg);
+  }
+
+  &[data-icon="login"] {
+    mask-image: url(/static/icons/right-to-bracket-solid.svg);
+  }
+
+  &[data-icon="logout"] {
+    mask-image: url(/static/icons/right-from-bracket-solid.svg);
+  }
+
+  &[data-icon="system"] {
+    mask-image: url(/static/icons/circle-half-stroke-solid.svg);
+  }
+
+  &[data-icon="dark"] {
+    mask-image: url(/static/icons/moon-solid.svg);
+  }
+
+  &[data-icon="light"] {
+    mask-image: url(/static/icons/sun-solid.svg);
+  }
+
+  &[data-icon="delete"] {
+    mask-image: url(/static/icons/trash-solid.svg);
+  }
+
+  &[data-icon="copy"] {
+    mask-image: url(/static/icons/copy-solid.svg);
+  }
+
+  &[data-icon="purchase"] {
+    mask-image: url(/static/icons/cart-shopping-solid.svg);
+  }
+
+  &[data-icon="deposit"] {
+    mask-image: url(/static/icons/money-bill-solid.svg);
+  }
+
+  &[data-icon="add"] {
+    mask-image: url(/static/icons/plus-solid.svg);
+  }
+}
