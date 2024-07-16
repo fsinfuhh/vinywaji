@@ -1,18 +1,12 @@
+{% load macros %}
+{% loadmacros "components/forms.html" %}
 {% load humanize %}
-<form id="pay-up" class="js-submit" action="{% url 'transaction-list' %}?currency=euro&type=deposit" method="post">
+<form id="pay-up" class="js-submit mt-4 mb-8 sm:mb-2"
+      action="{% url 'transaction-list' %}?currency=euro&type=deposit" method="post">
     {% csrf_token %}
-    <div class="horizontal-align">
-        <div class="input-field">
-            {% if pay_up_amount > 0 %}
-                <input id="pay-up-amount" class="validate" name="amount" type="number" required min="0.1"
-                       step="0.1" value="{{ pay_up_amount }}">
-                <label for="pay-up-amount">Deposit Value (€)</label>
-            {% else %}
-                <input id="pay-up-amount" class="validate" name="amount" type="number" required step="0.1" min="0.5">
-                <label for="pay-up-amount">Deposit Value (you currently have {{ current_balance | floatformat:2 | intcomma }}€) (€)</label>
-            {% endif %}
-        </div>
+    <div class="grid grid-cols-1 sm:grid-cols-3 justify-stretch gap-2">
+        {% usemacro input "Deposit Value (€)" "amount" id="amount_deposit" type="number" required=True step="0.1" min="0.1" class="sm:col-span-2" %}
 
-        <button class="btn btn-large color-primary" type="submit">Deposit</button>
+        {% usemacro button "Deposit" icon="deposit" color="lime" darkColor="green" %}
     </div>
 </form>

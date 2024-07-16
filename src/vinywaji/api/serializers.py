@@ -28,3 +28,18 @@ class TransactionSerializer(serializers.ModelSerializer):
             validated_data["amount"] = validated_data["amount"] * -1
         validated_data["amount"] = int(validated_data["amount"])
         return models.Transaction.objects.create(**validated_data)
+
+
+class WebhookConfigSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = models.WebhookConfig
+        fields = "__all__"
+
+    user = serializers.PrimaryKeyRelatedField(
+        default=serializers.CurrentUserDefault(), queryset=models.User.objects.all()
+    )
+    amount = serializers.FloatField()
+
+    def create(self, validated_data):
+        validated_data["amount"] = int(validated_data["amount"])
+        return models.WebhookConfig.objects.create(**validated_data)
