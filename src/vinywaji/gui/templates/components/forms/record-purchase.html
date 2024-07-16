@@ -5,7 +5,7 @@
       action="{% url 'transaction-list' %}?currency=euro&type=purchase" method="post">
     {% csrf_token %}
     <div class="grid grid-cols-2 sm:grid-cols-3 justify-stretch gap-2">
-        {% usemacro input "Purchase Value (€)" "amount" value="1.5" type="number" required=True step="0.1" %}
+        {% usemacro input "Purchase Value (€)" "amount" id="amount_purchase" value="1.5" type="number" required=True step="0.1" %}
 
         {% usemacro input "Description" "description" type="text" placeholder="fritz-kola" %}
 
