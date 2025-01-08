@@ -1,0 +1,16 @@
+{% load macros %}
+{% loadmacros "components/forms.html" %}
+
+<form id="purchase" class="js-submit mt-4 mb-8 sm:mb-2"
+      action="{% url 'webhook-list' %}" method="post">
+    {% csrf_token %}
+    <div class="grid grid-cols-2 justify-stretch gap-2">
+        {% usemacro input "Description" "description" type="text" class="col-span-full" %}
+
+        {% usemacro input "Transaction amount in ct (positive is deposit & negative is purchase)" "amount" type="number" placeholder="150" required=True step="1" %}
+
+        {% usemacro input "Transaction description" "transaction_description" type="text" placeholder="fritz-kola" %}
+
+        {% usemacro button "Add Webhook" icon="add" class="col-span-full" %}
+    </div>
+</form>

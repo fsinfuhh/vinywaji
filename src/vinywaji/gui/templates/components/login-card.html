@@ -1,16 +1,17 @@
-<div class="row">
-    <div class="col l8 push-l2 m12 s12">
-        <div class="card ">
-            <div class="card-content">
-                <h1 class="card-title">Login required</h1>
-                <p>You need to login in order to use this service.</p>
-            </div>
+{% load macros %}
+{% loadmacros "components/forms.html" %}
 
-            <div class="card-action">
-                <a href="{% url 'simple_openid_connect:login' %}" class="btn color-primary">
-                    <i class="material-icons left">login</i>Login with {{ openid_provider_name }}
-                </a>
-            </div>
-        </div>
+<div class="bg-black/10 dark:bg-white/10 rounded-2xl px-4 py-2">
+
+    <h1 class="text-4xl leading-normal">Login required</h1>
+    <p>You need to log in, in order to use this service.</p>
+
+
+    <div class="py-4">
+        <a href="{% url 'simple_openid_connect:login' %}"
+       class="inline-block w-full text-center bg-primary-400 hover:bg-primary-500 dark:bg-primary-600 dark:hover:bg-primary-700 px-4 py-2 rounded-lg min-w-30">
+        Login with {{ openid_provider_name }}
+    </a>
     </div>
+
 </div>

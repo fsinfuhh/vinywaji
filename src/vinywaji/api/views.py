@@ -72,3 +72,23 @@ class TransactionViewSet(
             return [IsAuthenticated()]
         else:
             return [(IsAdminUser | permissions.IsRelatedToRequester)()]
+
+
+class WebhookConfigViewSet(
+    viewsets.mixins.CreateModelMixin,
+    viewsets.mixins.DestroyModelMixin,
+    viewsets.GenericViewSet,
+):
+    serializer_class = serializers.WebhookConfigSerializer
+
+    def get_queryset(self):
+        if self.request.user.is_superuser:
+            return models.WebhookConfig.objects.all()
+        else:
+            return models.WebhookConfig.objects.filter(user=self.request.user)
+
+    def get_permissions(self):
+        if self.action == "list":
+            return [IsAuthenticated()]
+        else:
+            return [(IsAdminUser | permissions.IsRelatedToRequester)()]

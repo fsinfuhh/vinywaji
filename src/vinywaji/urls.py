@@ -1,5 +1,6 @@
 """vinywaji URL Configuration"""
 
+from django.conf import settings
 from django.contrib import admin
 from django.urls import include, path
 
@@ -10,3 +11,5 @@ urlpatterns = [
     path("metrics/", include("vinywaji.metrics.urls")),
     path("", include("vinywaji.gui.urls")),
 ]
+if settings.DEBUG:
+    urlpatterns.append(path("__reload__/", include("django_browser_reload.urls")))

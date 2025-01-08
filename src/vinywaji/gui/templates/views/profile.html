@@ -1,0 +1,93 @@
+{% extends "base.html" %}
+{% load custom_filters %}
+{% load static %}
+{% load macros %}
+{% loadmacros "components/forms.html" %}
+
+{% block authorized-content %}
+    <h4 class="text-4xl leading-normal">
+        Profile Settings
+    </h4>
+
+    <section class="mt-4">
+        <h5 class="text-2xl leading-normal">Basic Information</h5>
+        <dl>
+            <div class="flex gap-2">
+                <dt class="font-bold">Username:</dt>
+                <dd>{{ request.user }} </dd>
+            </div>
+        </dl>
+    </section>
+
+    <section class="mt-4">
+        <h5 class="text-2xl leading-normal">Webhooks</h5>
+
+        <p>
+            You can add webhooks for defined transactions.<br>
+            This gives you the ability to call them from custom clients e.g. in a smart home integration.
+        </p>
+
+        <p class="mt-4">
+            Webhookes can be triggered by issuing an HTTP-<code>GET</code> request to its url.
+        </p>
+
+        {% include "components/forms/add_webhook.html" %}
+
+        <hr class="border-gray-500 my-4">
+
+        {% csrf_token %}
+
+        <script>
+            const csrftoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+
+            async function writeClipboardText(text) {
+                try {
+                    await navigator.clipboard.writeText(text);
+                } catch (error) {
+                    console.error(error.message);
+                }
+            }
+
+            async function deleteWebhook(id) {
+                await fetch(`{% url 'webhook-list' %}${id}`, {
+                    "method": "DELETE",
+                    headers: {'X-CSRFToken': csrftoken},
+                }).then(() => {
+                    window.location.reload();
+                });
+            }
+        </script>
+
+        <dl>
+            {% for webhook in webhooks %}
+                <div class="grid grid-cols-3 gap-2 py-2 border-b border-gray-700">
+                    <dt class="font-bold flex items-center">
+                        {{ webhook.description }}
+                    </dt>
+                    <dd class="col-span-2 flex justify-between items-center">
+                        <div>
+
+                                <span class="min-w-16 inline-block
+                                     {% if webhook.amount < 0 %}
+                                         bg-orange-300 dark:bg-orange-900
+                                     {% elif webhook.amount == 0 %}
+                                         bg-gray-300 dark:bg-gray-700
+                                     {% else %}
+                                         bg-lime-300 dark:bg-green-900
+                                     {% endif %}
+                                  text-center rounded-lg">
+                                    {{ webhook.amount|toEuro }} €
+                                </span>
+                            <span class="ml-4"><b>Description:</b> {{ webhook.transaction_description }}</span>
+                        </div>
+                        <div>
+                            {% url 'webhook-trigger' trigger=webhook.trigger_key as webhook_url %}
+                            {% usemacro button "Copy URL" icon="copy" dataA=request.scheme dataB=request.META.HTTP_HOST dataC=webhook_url onclick="writeClipboardText(`${this.dataset.a}://${this.dataset.b}${this.dataset.c}`)" color="primary" %}
+                            {% usemacro button "Delete" icon="delete" dataA=webhook.id onclick="deleteWebhook(this.dataset.a)" color="red" %}
+                        </div>
+                    </dd>
+                </div>
+            {% endfor %}
+        </dl>
+    </section>
+{% endblock %}

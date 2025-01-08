@@ -2,16 +2,18 @@ import json
 import math
 
 from django.conf import settings
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.http import HttpRequest, HttpResponse
 from django.shortcuts import render
 from django.views import View
+
+from vinywaji.core.models import WebhookConfig
 
 
 class DashboardView(View):
     def get(self, request: HttpRequest):
         context = {
             "openid_provider_name": settings.OPENID_PROVIDER_NAME,
-            "mafiasi_colors": settings.MAFIASI_COLORS,
             "title": settings.ORG_NAME,
         }
         if not request.user.is_anonymous:
@@ -29,16 +31,36 @@ class DashboardView(View):
         return render(request, "views/dashboard.html", context)
 
 
-def manifest(request):
-    if settings.MAFIASI_COLORS:
-        theme_color = "#02837c"
-    else:
-        theme_color = "#ff8f00"
+class ProfileView(LoginRequiredMixin, View):
+    def get(self, request: HttpRequest):
+        context = {
+            "openid_provider_name": settings.OPENID_PROVIDER_NAME,
+            "title": settings.ORG_NAME,
+        }
+        if not request.user.is_anonymous:
+            context.update(
+                {
+                    "webhooks": request.user.webhooks.all(),
+                }
+            )
 
+        return render(request, "views/profile.html", context)
+
+
+class WebhookTriggerView(View):
+    def get(self, request: HttpRequest, trigger: str):
+        webhook = WebhookConfig.objects.filter(trigger_key=trigger)
+        if len(webhook) == 1:
+            webhook[0].trigger()
+            return HttpResponse("OK", status=200)
+        else:
+            return HttpResponse("Webhook not found", status=404)
+
+
+def manifest(request):
     content = {
         "name": settings.ORG_NAME,
         "short_name": settings.ORG_NAME,
-        "theme_color": theme_color,
         "background_color": "#ffffff",
         "display": "standalone",
         "orientation": "portrait",

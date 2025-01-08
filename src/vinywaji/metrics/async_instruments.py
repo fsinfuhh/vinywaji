@@ -43,17 +43,13 @@ def count_transactions(_options: CallbackOptions) -> Iterable[Observation]:
     n_positive = models.Transaction.objects.filter(amount__gt=0).count()
     yield Observation(value=n_negative, attributes={"transaction_type": "withdrawal"})
     yield Observation(value=n_positive, attributes={"transaction_type": "deposit"})
-    yield Observation(
-        value=n_positive + n_negative, attributes={"transaction_type": "any"}
-    )
+    yield Observation(value=n_positive + n_negative, attributes={"transaction_type": "any"})
 
 
 def count_users(_options: CallbackOptions) -> Iterable[Observation]:
     n = models.User.objects.all().count()
     n_balance = (
-        models.User.objects.annotate(
-            current_balance=Sum("transactions__amount", default=0)
-        )
+        models.User.objects.annotate(current_balance=Sum("transactions__amount", default=0))
         .exclude(current_balance=0)
         .count()
     )
@@ -63,23 +59,17 @@ def count_users(_options: CallbackOptions) -> Iterable[Observation]:
 
 def calc_transaction_aggregates(_options: CallbackOptions) -> Iterable[Observation]:
     negative_sum = (
-        models.Transaction.objects.all()
-        .filter(amount__gt=0)
-        .aggregate(sum=Sum("amount", default=0))
+        models.Transaction.objects.all().filter(amount__gt=0).aggregate(sum=Sum("amount", default=0))
     )
     positive_sum = (
-        models.Transaction.objects.all()
-        .filter(amount__lt=0)
-        .aggregate(sum=Sum("amount", default=0))
+        models.Transaction.objects.all().filter(amount__lt=0).aggregate(sum=Sum("amount", default=0))
     )
 
     yield Observation(
         attributes={"transaction_type": "withdrawal"},
         value=negative_sum["sum"],
     )
-    yield Observation(
-        attributes={"transaction_type": "deposit"}, value=positive_sum["sum"]
-    )
+    yield Observation(attributes={"transaction_type": "deposit"}, value=positive_sum["sum"])
     yield Observation(
         attributes={"transaction_type": "all"},
         value=positive_sum["sum"] + negative_sum["sum"],

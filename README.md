@@ -48,28 +48,59 @@ To start it:
 
 ```shell
 pipenv shell
+./src/manage.py tailwind install
+./src/manage.py check --deploy
+./src/manage.py migrate
+./src/manage.py tailwind build
+./src/manage.py collectstatic
+./src/manage.py runserver
+```
+
+## Development
+
+Install dev dependencies:
+```shell
+
+pipenv install -d --ignore-pipfile
+```
+
+Install npm. E.g.:
+```shell
+sudo apt install nodejs npm
+pipenv shell
+./src/manage.py tailwind install
+```
+
+Run Django Dev Server
+```shell
 ./src/manage.py check --deploy
 ./src/manage.py migrate
 ./src/manage.py runserver
+```
+
+Run tailwind server
+```shell
+./src/manage.py tailwind start
 ```
 
 ## Configuration
 
 The application is configured at runtime via the following environment variables:
 
-| Name                    | Default                | Description                                                                                                                   | Notes                                                                               |
-|-------------------------|------------------------|-------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------|
-| VW_DB                   | *required*             | Url that specifies the complete database connection. [Documentation](https://pypi.org/project/dj-database-url/)               | In container based deployments this preconfigured to point to `/app/data/db.sqlite` |
-| VW_SECRET_KEY           | *required*             | Django secret key. **Keep this secret!**                                                                                      |                                                                                     |
-| VW_ALLOWED_HOSTS        | *required*             | List of hostnames which may be used when accessing the application.                                                           |                                                                                     |
-| VW_SERVED_OVER_HTTPS    | `false`                | Whether the application is served over HTTPS. If enabled, automatic redirects and additional security measures are activated. |                                                                                     |
-| VW_HSTS_SECONDS         | `63072000`             | If larger than 0 and `BL_SERVED_OVER_HTTPS` is true, HSTS is enabled with this configured value.                              |                                                                                     |
-| VW_TRUST_REVERSE_PROXY  | `false`                | If true, headers set by a reverse proxy (i.e. `X-Forwarded-Proto`) are trusted.                                               |                                                                                     |
-| VW_OPENID_PROVIDER_NAME | `Mafiasi`              | A human readable name identifying the authentication provider.                                                                |                                                                                     |
-| VW_OPENID_ISSUER        | *mafiasi-identity*     | The url of the openid issue                                                                                                   |                                                                                     |
-| VW_OPENID_CLIENT_ID     | *required*             | Mafiasi-Identity client ID. Used for authentication                                                                           |                                                                                     |
-| VW_OPENID_CLIENT_SECRET | *required*             | Mafiasi-Identity client secret. Used for authentication                                                                       |                                                                                     |
-| VW_ALLOWED_METRICS_NETS | `127.0.0.0/8`, `::/64` | List of IP networks which are allowed to access the /metrics endpoint                                                         |                                                                                     |
-| VW_ORG_NAME             | `Bit-Bots Drinks`      | Application Title related to the organisation that hosts it                                                                   |                                                                                     |
-| VW_DEFAULT_AMOUNT       | `1.5`                  | A float describing how much a drink costs per default                                                                         |                                                                                     |
-| VW_MAFIASI_COLORS       | `false`                | Whether a color scheme specific to Mafiasi should be used                                                                     |                                                                                     |
+| Name                    | Default                | Description                                                                                                                   | Notes                                                                                    |
+|-------------------------|------------------------|-------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------|
+| VW_DEBUG                | `false`                | Whether Debug Mode should be enabled.                                                                                         | When `true`, dependencies have to be installed with `pipenv install -d --ignore-pipfile` |
+| VW_DB                   | *required*             | Url that specifies the complete database connection. [Documentation](https://pypi.org/project/dj-database-url/)               | In container based deployments this preconfigured to point to `/app/data/db.sqlite`      |
+| VW_SECRET_KEY           | *required*             | Django secret key. **Keep this secret!**                                                                                      |                                                                                          |
+| VW_ALLOWED_HOSTS        | *required*             | List of hostnames which may be used when accessing the application.                                                           |                                                                                          |
+| VW_SERVED_OVER_HTTPS    | `false`                | Whether the application is served over HTTPS. If enabled, automatic redirects and additional security measures are activated. |                                                                                          |
+| VW_HSTS_SECONDS         | `63072000`             | If larger than 0 and `BL_SERVED_OVER_HTTPS` is true, HSTS is enabled with this configured value.                              |                                                                                          |
+| VW_TRUST_REVERSE_PROXY  | `false`                | If true, headers set by a reverse proxy (i.e. `X-Forwarded-Proto`) are trusted.                                               |                                                                                          |
+| VW_OPENID_PROVIDER_NAME | `Mafiasi`              | A human readable name identifying the authentication provider.                                                                |                                                                                          |
+| VW_OPENID_ISSUER        | *mafiasi-identity*     | The url of the openid issue                                                                                                   |                                                                                          |
+| VW_OPENID_CLIENT_ID     | *required*             | Mafiasi-Identity client ID. Used for authentication                                                                           |                                                                                          |
+| VW_OPENID_CLIENT_SECRET | *required*             | Mafiasi-Identity client secret. Used for authentication                                                                       |                                                                                          |
+| VW_ALLOWED_METRICS_NETS | `127.0.0.0/8`, `::/64` | List of IP networks which are allowed to access the /metrics endpoint                                                         |                                                                                          |
+| VW_ORG_NAME             | `Bit-Bots Drinks`      | Application Title related to the organisation that hosts it                                                                   |                                                                                          |
+| VW_DEFAULT_AMOUNT       | `1.5`                  | A float describing how much a drink costs per default                                                                         |                                                                                          |
+| VW_THEME_COLOR          | `teal`                 | Which color theme should be used (tailwindcss colors)                                                                         |                                                                                          |
