@@ -9,9 +9,9 @@
 
     <hr class="py-2">
 
-    {% include "components/forms/record-purchase.html" %}
+    {% include "components/forms/record-purchase.html" with default_amount=default_amount %}
 
-    {% include "components/forms/pay-up.html" %}
+    {% include "components/forms/pay-up.html" with pay_up_amount=pay_up_amount %}
 
     <h4 class="text-4xl leading-normal">Past transactions</h4>
     <hr class="py-2">
