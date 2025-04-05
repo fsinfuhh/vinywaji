@@ -1,0 +1,14 @@
+services:
+  dev:
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+    ports:
+      - 127.0.0.1:8080:80
+    env_file:
+      - .env
+    volumes:
+      - ./src:/app/
+      - ./Pipfile:/app/Pipfile
+      - ./Pipfile.lock:/app/Pipfile.lock
+      - ./docker/prestart.sh:/app/prestart.sh
