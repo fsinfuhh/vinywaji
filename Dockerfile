@@ -3,8 +3,10 @@ FROM docker.io/tiangolo/uvicorn-gunicorn:python3.10-slim
 # add system dependencies
 ENV DEBIAN_FRONTEND=noninteractive
 RUN apt-get update &&\
-    apt-get install -y --no-install-recommends git nodejs npm &&\
-    apt-get clean && rm -rf /var/lib/apt/lists/*
+apt-get install -y --no-install-recommends git curl
+RUN curl -sL https://deb.nodesource.com/setup_22.x | bash -
+RUN apt-get install -y --no-install-recommends nodejs &&\
+apt-get clean && rm -rf /var/lib/apt/lists/*
 RUN pip3 install --no-cache pipenv psycopg2-binary
 WORKDIR /app
 
